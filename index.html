@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lens & Horizon | Photography & Videography</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #3498db;
+            --card-bg: #141414;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* Hero Section (Split Screen Concept) */
+        .hero {
+            height: 100vh;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-side {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Placeholder background gradients to simulate cinematic shots */
+        .side-ground {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80');
+        }
+
+        .side-drone {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80');
+        }
+
+        .hero-side:hover {
+            flex: 1.3;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .hero-content i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        /* Portfolio Section */
+        .portfolio-container {
+            padding: 100px 50px;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 50px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Filter Tabs */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-color);
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-color: var(--text-color);
+        }
+
+        /* Dynamic Grid */
+        .portfolio-grid {
+            columns: 3 350px;
+            column-gap: 25px;
+        }
+
+        /* Reveal-on-scroll dynamic items */
+        .grid-item {
+            background-color: var(--card-bg);
+            margin-bottom: 25px;
+            break-inside: avoid;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .grid-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-overlay h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .item-overlay span {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Footer / Contact */
+        footer {
+            padding: 80px 50px;
+            text-align: center;
+            background-color: #050505;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-content h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .contact-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* Responsive Design */
+        @media(max-width: 768px) {
+            nav { padding: 20px; }
+            .hero { flex-direction: column; }
+            .portfolio-container { padding: 60px 20px; }
+            .portfolio-grid { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">LENS & HORIZON</div>
+        <div class="nav-links">
+            <a href="#work">Work</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-side side-ground" onclick="document.getElementById('work').scrollIntoView();">
+            <div class="hero-content">
+                <i class="fa-solid fa-camera"></i>
+                <h1>Ground</h1>
+                <p>Photography & Cinema</p>
+            </div>
+        </div>
+        <div class="hero-side side-drone" onclick="document.getElementById('work').scrollIntoView();">
+            <div class="hero-content">
+                <i class="fa-solid fa-drone"></i>
+                <h1>Aerial</h1>
+                <p>Drone Videography & Mapping</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="work" class="portfolio-container">
+        <h2 class="section-title">Selected Works</h2>
+
+        <div class="filters">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="ground">Ground</button>
+            <button class="filter-btn" data-filter="drone">Aerial/Drone</button>
+        </div>
+
+        <div class="portfolio-grid">
+            <div class="grid-item" data-category="ground">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="Ground Portrait">
+                <div class="item-overlay">
+                    <h3>Golden Hour Portraits</h3>
+                    <span>Ground Photography</span>
+                </div>
+            </div>
+            <div class="grid-item" data-category="drone">
+                <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=80" alt="Drone Coastline">
+                <div class="item-overlay">
+                    <h3>Pacific Coastline</h3>
+                    <span>Drone Videography</span>
+                </div>
+            </div>
+            <div class="grid-item" data-category="ground">
+                <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=600&q=80" alt="Cinematic Event">
+                <div class="item-overlay">
+                    <h3>Neon Nights</h3>
+                    <span>Cinematography</span>
+                </div>
+            </div>
+            <div class="grid-item" data-category="drone">
+                <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=600&q=80" alt="Drone Mountain">
+                <div class="item-overlay">
+                    <h3>Alpine Ridges</h3>
+                    <span>Aerial Photography</span>
+                </div>
+            </div>
+            <div class="grid-item" data-category="ground">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80" alt="Studio Shoot">
+                <div class="item-overlay">
+                    <h3>Behind The Velvet Curtain</h3>
+                    <span>Commercial Video</span>
+                </div>
+            </div>
+            <div class="grid-item" data-category="drone">
+                <img src="https://images.unsplash.com/photo-1530982011887-3cc11cc85f3f?auto=format&fit=crop&w=600&q=80" alt="City Grid Drone">
+                <div class="item-overlay">
+                    <h3>Urban Geometry</h3>
+                    <span>Drone Photography</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="footer-content">
+            <h2>Let's Capture Something Incredible</h2>
+            <p>Available worldwide for ground-level productions and licensed commercial drone operations.</p>
+            <a href="mailto:yourbrand@email.com" class="contact-btn">Get In Touch</a>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gridItems = document.querySelectorAll('.grid-item');
+            const filterButtons = document.querySelectorAll('.filter-btn');
+
+            // 1. Intersection Observer for Dynamic Scroll-In Effect
+            const observerOptions = {
+                root: null, // viewport
+                threshold: 0.1, // trigger when 10% of the item is visible
+                rootMargin: "0px 0px -50px 0px" // triggers slightly before it enters full view
+            };
+
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // Add class to trigger CSS transition animation
+                        entry.target.classList.add('visible');
+                        // Stop observing once loaded
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Attach observer to all grid items
+            gridItems.forEach(item => imageObserver.observe(item));
+
+            // 2. Interactive Category Filtering 
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active status from previous button
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const filterValue = button.getAttribute('data-filter');
+
+                    gridItems.forEach(item => {
+                        const itemCategory = item.getAttribute('data-category');
+                        
+                        if (filterValue === 'all' || filterValue === itemCategory) {
+                            item.style.display = 'block';
+                            // Small timeout lets display block kick in before fading back in
+                            setTimeout(() => {
+                                item.classList.add('visible');
+                            }, 50);
+                        } else {
+                            item.classList.remove('visible');
+                            item.style.display = 'none';
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
