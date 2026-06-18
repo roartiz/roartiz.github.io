@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOARTIZ MEDIA | Photography & Videography</title>
-    <!-- Google Fonts & FontAwesome for Icons -->
+    <title>Lens & Horizon | Photography & Videography</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -255,12 +254,31 @@
             margin-top: 5px;
         }
 
-        /* Footer / Contact Section */
+        /* Enhanced Footer & Contact Layout */
         #contact-section {
             z-index: 3;
-            text-align: center;
             background-color: #050505;
             border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 100px 50px 40px 50px;
+            height: 100vh;
+        }
+
+        .footer-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 100%;
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            margin: auto 0; /* Centers call-to-action contents vertically */
+            text-align: center;
         }
 
         .footer-content h2 {
@@ -287,6 +305,35 @@
             color: var(--bg-color);
         }
 
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 40px;
+            width: 100%;
+        }
+
+        .copyright {
+            font-size: 0.85rem;
+            opacity: 0.4;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-socials a {
+            color: var(--text-color);
+            font-size: 1.2rem;
+            margin-left: 20px;
+            opacity: 0.4;
+            transition: var(--transition);
+        }
+
+        .footer-socials a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
         /* Responsive Fixes */
         @media(max-width: 768px) {
             nav { padding: 20px; }
@@ -294,21 +341,22 @@
             .stack-section { position: relative; height: auto; } /* Disable stacking on small mobile views to prevent clipping long grids */
             #work-section { padding: 100px 20px; }
             .portfolio-grid { columns: 1; }
+            #contact-section { height: auto; padding: 80px 20px 40px 20px; }
+            .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
+            .footer-socials a { margin: 0 10px; }
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
     <nav>
-        <div class="logo">SOARTIZ MEDIA</div>
+        <div class="logo">LENS & HORIZON</div>
         <div class="nav-links">
             <a href="#work-section">Work</a>
             <a href="#contact-section">Contact</a>
         </div>
     </nav>
 
-    <!-- Section 1: Hero Split-Screen (Pointers direct to target categories below) -->
     <section id="hero-section" class="stack-section">
         <div class="hero-side side-ground" onclick="filterPortfolio('ground')">
             <div class="hero-content">
@@ -326,20 +374,16 @@
         </div>
     </section>
 
-    <!-- Section 2: Selected Works Portfolio -->
     <section id="work-section" class="stack-section">
         <h2 class="section-title">Selected Works</h2>
 
-        <!-- Interactive Filter Tabs -->
         <div class="filters">
             <button class="filter-btn active" id="filter-all" onclick="filterPortfolio('all')">All</button>
             <button class="filter-btn" id="filter-ground" onclick="filterPortfolio('ground')">Ground</button>
             <button class="filter-btn" id="filter-drone" onclick="filterPortfolio('drone')">Aerial/Drone</button>
         </div>
 
-        <!-- Dynamic Grid Layout -->
         <div class="portfolio-grid">
-            <!-- Item 1 -->
             <div class="grid-item" data-category="ground">
                 <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="Ground Portrait">
                 <div class="item-overlay">
@@ -347,7 +391,6 @@
                     <span>Ground Photography</span>
                 </div>
             </div>
-            <!-- Item 2 -->
             <div class="grid-item" data-category="drone">
                 <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=80" alt="Drone Coastline">
                 <div class="item-overlay">
@@ -355,7 +398,6 @@
                     <span>Drone Videography</span>
                 </div>
             </div>
-            <!-- Item 3 -->
             <div class="grid-item" data-category="ground">
                 <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=600&q=80" alt="Cinematic Event">
                 <div class="item-overlay">
@@ -363,7 +405,6 @@
                     <span>Cinematography</span>
                 </div>
             </div>
-            <!-- Item 4 -->
             <div class="grid-item" data-category="drone">
                 <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=600&q=80" alt="Drone Mountain">
                 <div class="item-overlay">
@@ -371,7 +412,6 @@
                     <span>Aerial Photography</span>
                 </div>
             </div>
-            <!-- Item 5 -->
             <div class="grid-item" data-category="ground">
                 <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80" alt="Studio Shoot">
                 <div class="item-overlay">
@@ -379,7 +419,6 @@
                     <span>Commercial Video</span>
                 </div>
             </div>
-            <!-- Item 6 -->
             <div class="grid-item" data-category="drone">
                 <img src="https://images.unsplash.com/photo-1530982011887-3cc11cc85f3f?auto=format&fit=crop&w=600&q=80" alt="City Grid Drone">
                 <div class="item-overlay">
@@ -390,16 +429,25 @@
         </div>
     </section>
 
-    <!-- Section 3: Booking & Contact Form -->
     <section id="contact-section" class="stack-section">
-        <div class="footer-content">
-            <h2>Let's Capture Something Incredible</h2>
-            <p>Available worldwide for ground-level productions and licensed commercial drone operations.</p>
-            <a href="mailto:richard@soartiz.com" class="contact-btn">Get In Touch</a>
+        <div class="footer-container">
+            <div class="footer-content">
+                <h2>Let's Capture Something Incredible</h2>
+                <p>Available worldwide for ground-level productions and licensed commercial drone operations.</p>
+                <a href="mailto:yourbrand@email.com" class="contact-btn">Get In Touch</a>
+            </div>
+            
+            <div class="footer-bottom">
+                <p class="copyright">&copy; 2021-2026 SOARTIZ MEDIA. All Rights Reserved.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" aria-label="Vimeo"><i class="fa-brands fa-vimeo-v"></i></a>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- JavaScript Handling Shrinking Transitions and Smart Anchors -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const gridItems = document.querySelectorAll('.grid-item');
