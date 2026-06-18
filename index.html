@@ -418,16 +418,8 @@
             .stack-section { position: relative; height: auto; min-height: auto; } 
 
             /* Fix cramped hero layouts and buttons */
-            #hero-section { 
-                flex-direction: column; 
-                height: 100vh; 
-                padding-top: 130px; /* Pushes content away from stacked mobile header */
-            }
-            .hero-side { 
-                padding: 40px 20px; /* Tightens internal height so sections sit cleanly */
-                flex: 1 !important; 
-                background-position: center center; /* Ensures images lock nicely center-mass */
-            }
+            #hero-section { flex-direction: column; height: 100vh; }
+            .hero-side { padding: 60px 20px; flex: 1 !important; }
             .hero-content h1 { font-size: 2rem; }
             .hero-content i { font-size: 2.2rem; margin-bottom: 10px; }
 
@@ -529,7 +521,7 @@
                         style="width: 100%; height: 100%; border: none; object-fit: cover;"
                         allow="autoplay; encrypted-media" 
                         allowfullscreen>
-                    </table>
+                    </iframe>
                 </div>
                 <div class="item-overlay">
                     <h3>Justina + Dan</h3>
