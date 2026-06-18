@@ -236,6 +236,8 @@
             padding: 30px;
             opacity: 0;
             transition: var(--transition);
+            z-index: 2; /* Ensures overlay remains interactive above iframes */
+            pointer-events: none; /* Allows pointer actions to bypass overlay onto elements underneath if needed */
         }
 
         .grid-item:hover .item-overlay {
@@ -343,6 +345,7 @@
             #work-section { padding: 100px 20px; }
             .portfolio-grid { grid-template-columns: 1fr; }
             .grid-item img { height: 200px; } /* CHANGED landscape aspect ratio height adjustment for smaller mobile screens */
+            .grid-item .video-container { height: 200px !important; } /* Keeps video uniform on mobile layout */
             #contact-section { height: auto; padding: 80px 20px 40px 20px; }
             .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
             .footer-socials a { margin: 0 10px; }
@@ -388,37 +391,38 @@
 
         <div class="portfolio-grid">
             <div class="grid-item" data-category="ground">
-                <img src="assets/images/confTable.jpg?auto=format&fit=crop&w=600&q=80" alt="Conference room with large artisan table">
+                <img src="assets/images/confTable.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Conference room with large artisan table">
                 <div class="item-overlay">
                     <h3>Commercial Interiors</h3>
                     <span>Real Estate</span>
                 </div>
             </div>
             <div class="grid-item" data-category="drone">
-                <img src="assets/images/construction.jpg?auto=format&fit=crop&w=600&q=80" alt="New housing development under construction">
+                <img src="assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="New housing development under construction">
                 <div class="item-overlay">
-                    <h3>Residential Site Progress</h3>
+                    <h3>Residential Development Progress</h3>
                     <span>Construction</span>
                 </div>
             </div>
             <div class="grid-item" data-category="ground">
-                <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=600&q=80" alt="Cinematic Event">
+                <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=600&h=400&q=80" alt="Cinematic Event">
                 <div class="item-overlay">
                     <h3>Neon Nights</h3>
                     <span>Cinematography</span>
                 </div>
             </div>
             <div class="grid-item" data-category="drone">
-                <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=600&q=80" alt="Drone Mountain">
+                <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=600&h=400&q=80" alt="Drone Mountain">
                 <div class="item-overlay">
                     <h3>Alpine Ridges</h3>
                     <span>Aerial Photography</span>
                 </div>
             </div>
+            
             <div class="grid-item" data-category="ground">
-                <div style="position: relative; width: 100%; height: 250px;">
+                <div class="video-container" style="position: relative; width: 100%; height: 250px;">
                     <iframe 
-                        src="https://www.youtube.com/watch?v=SG25dLuapzc?autoplay=1&mute=1&loop=1&playlist=SG25dLuapzc&controls=0&showinfo=0&rel=0" 
+                        src="https://www.youtube.com/embed/SG25dLuapzc?autoplay=1&mute=1&loop=1&playlist=SG25dLuapzc&controls=0&showinfo=0&rel=0" 
                         title="Justina + Dan"
                         style="width: 100%; height: 100%; border: none; object-fit: cover;"
                         allow="autoplay; encrypted-media" 
@@ -430,8 +434,9 @@
                     <span>Commercial Video</span>
                 </div>
             </div>
+
             <div class="grid-item" data-category="drone">
-                <img src="https://images.unsplash.com/photo-1530982011887-3cc11cc85f3f?auto=format&fit=crop&w=600&q=80" alt="City Grid Drone">
+                <img src="https://images.unsplash.com/photo-1530982011887-3cc11cc85f3f?auto=format&fit=crop&w=600&h=400&q=80" alt="City Grid Drone">
                 <div class="item-overlay">
                     <h3>Urban Geometry</h3>
                     <span>Drone Photography</span>
