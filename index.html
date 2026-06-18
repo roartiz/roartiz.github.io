@@ -68,7 +68,7 @@
             letter-spacing: 3.5px;
             text-transform: uppercase;
             margin-top: 6px;
-            color: var(--accent-color); /* Updated to stand out cleanly */
+            color: var(--accent-color); /* Highlighted branding tagline */
         }
 
         .nav-links {
@@ -86,7 +86,7 @@
             text-transform: uppercase;
             position: relative;
             padding: 4px 0;
-            opacity: 0.85; /* Increased base visibility */
+            opacity: 0.85; /* Sharp contrast enhancement */
             transition: var(--transition);
         }
 
@@ -150,7 +150,13 @@
         }
 
         .side-drone {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
+            /* Upgraded multi-stop gradient for maximum text contrast without killing image colors */
+            background-image: linear-gradient(
+                to bottom, 
+                rgba(0, 0, 0, 0.3) 0%, 
+                rgba(0, 0, 0, 0.55) 60%, 
+                rgba(0, 0, 0, 0.75) 100__%
+            ), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .hero-side:hover {
@@ -167,6 +173,7 @@
             font-size: 3rem;
             margin-bottom: 20px;
             opacity: 0.8;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
         }
 
         .hero-content h1 {
@@ -174,12 +181,14 @@
             font-weight: 600;
             letter-spacing: 3px;
             text-transform: uppercase;
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Safety text protection layer */
         }
 
         .hero-content p {
             font-size: 1rem;
-            opacity: 0.6;
+            opacity: 0.8; /* Slightly raised for reading clarity */
             margin-top: 10px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
 
         /* Portfolio Section */
@@ -437,22 +446,19 @@
             }
             .logo-container { align-items: center; }
             .nav-links a { margin: 0 15px; }
-            .nav-links a::after { display: none; } /* Drop the underline rule line on mobile layout */
+            .nav-links a::after { display: none; }
             
-            /* Break the 100vh lock on standard mobile sections so elements have structural space */
             .stack-section { position: relative; height: auto; min-height: auto; } 
 
-            /* Fix cramped hero layouts and ensure panels don't get cut off by the fixed nav */
             #hero-section { 
                 flex-direction: column; 
-                margin-top: 135px; /* Safely offsets the fixed navigation column height */
-                height: calc(100vh - 135px); /* Forces the two panels to share remaining space exactly */
+                margin-top: 135px; 
+                height: calc(100vh - 135px); 
             }
             .hero-side { padding: 40px 20px; flex: 1 !important; }
             .hero-content h1 { font-size: 1.8rem; }
             .hero-content i { font-size: 2rem; margin-bottom: 8px; }
 
-            /* Fix tightly-spaced title/filters styling */
             #work-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
             .filters { flex-wrap: wrap; gap: 10px; margin-bottom: 35px; }
@@ -462,11 +468,9 @@
             .grid-item img { height: 200px; }
             .grid-item .video-container { height: 200px !important; }
 
-            /* Testimonials mobile configuration */
             #testimonials-section { padding: 80px 20px; }
             .testimonial-card { padding: 30px 20px; }
 
-            /* Contact mobile configuration */
             #contact-section { height: auto; padding: 80px 20px 40px 20px; }
             .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
             .footer-socials a { margin: 0 10px; }
@@ -607,7 +611,6 @@
         document.addEventListener("DOMContentLoaded", () => {
             const gridItems = document.querySelectorAll('.grid-item');
             
-            // 1. Intersection Observer for standard fade-in-on-scroll of grid content
             const imageObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -619,13 +622,11 @@
 
             gridItems.forEach(item => imageObserver.observe(item));
 
-            // 2. Continuous Scroll Event for the Shrink-and-Disappear Stacking Effect
             window.addEventListener('scroll', () => {
                 if (window.innerWidth > 768) {
                     const scrolled = window.scrollY;
                     const vh = window.innerHeight;
 
-                    // --- Hero Section Control ---
                     const hero = document.getElementById('hero-section');
                     if (scrolled <= vh) {
                         const scale = 1 - (scrolled / vh) * 0.15;
@@ -637,7 +638,6 @@
                         hero.style.opacity = 0;
                     }
 
-                    // --- Portfolio Section Control ---
                     const work = document.getElementById('work-section');
                     const workTop = work.offsetTop;
                     if (scrolled >= workTop) {
@@ -653,7 +653,6 @@
                         work.style.opacity = 1;
                     }
 
-                    // --- Testimonials Section Control ---
                     const testimonials = document.getElementById('testimonials-section');
                     const testimonialsTop = testimonials.offsetTop;
                     if (scrolled >= testimonialsTop) {
@@ -672,7 +671,6 @@
             });
         });
 
-        // 3. Smart Link Routing & Filter Trigger Function
         function filterPortfolio(category) {
             document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
 
