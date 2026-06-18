@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lens & Horizon | Photography & Videography</title>
+    <!-- Google Fonts & FontAwesome for Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-color: #0a0a0a;
+            --text-color: #ffffff;
+            --accent-color: #3498db;
+            --card-bg: #141414;
+            --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000; /* True black background for stacking layers */
+            color: var(--text-color);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 25px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            background: linear-gradient(to bottom, rgba(10,10,10,0.8), transparent);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-weight: 700;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: var(--transition);
+            opacity: 0.7;
+        }
+
+        .nav-links a:hover {
+            opacity: 1;
+            color: var(--accent-color);
+        }
+
+        /* --- STICKY STACKING MECHANICS --- */
+        /* Each major section is pinned. As you scroll, it shrinks via JS Scroll Event */
+        .stack-section {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: var(--bg-color);
+            transform-origin: center center;
+            transition: transform 0.1s linear, opacity 0.1s linear;
+            overflow: hidden;
+        }
+
+        /* Hero Section (Split Screen) */
+        #hero-section {
+            display: flex;
+            flex-direction: row;
+            z-index: 1;
+        }
+
+        .hero-side {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: var(--transition);
+            cursor: pointer;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .side-ground {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80');
+        }
+
+        .side-drone {
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80');
+        }
+
+        .hero-side:hover {
+            flex: 1.3;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            transition: var(--transition);
+        }
+
+        .hero-content i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            opacity: 0.8;
+        }
+
+        .hero-content h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+            opacity: 0.6;
+            margin-top: 10px;
+        }
+
+        /* Portfolio Section */
+        #work-section {
+            z-index: 2;
+            height: auto;
+            min-height: 100vh;
+            position: relative; /* Spans naturally to contain masonry grid */
+            padding: 120px 50px 100px 50px;
+            justify-content: flex-start;
+            overflow-y: auto;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        /* Filter Tabs */
+        .filters {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 50px;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-color);
+            padding: 10px 25px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: var(--transition);
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            border-color: var(--text-color);
+        }
+
+        /* Dynamic Grid */
+        .portfolio-grid {
+            columns: 3 350px;
+            column-gap: 25px;
+            width: 100%;
+            max-width: 1500px;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            background-color: var(--card-bg);
+            margin-bottom: 25px;
+            break-inside: avoid;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .grid-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .grid-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 30px;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .grid-item:hover .item-overlay {
+            opacity: 1;
+        }
+
+        .item-overlay h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .item-overlay span {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-top: 5px;
+        }
+
+        /* Footer / Contact Section */
+        #contact-section {
+            z-index: 3;
+            text-align: center;
+            background-color: #050505;
+            border-top: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .footer-content h2 {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 20px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            padding: 15px 40px;
+            border: 2px solid var(--text-color);
+            color: var(--text-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: var(--transition);
+        }
+
+        .contact-btn:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* Responsive Fixes */
+        @media(max-width: 768px) {
+            nav { padding: 20px; }
+            #hero-section { flex-direction: column; }
+            .stack-section { position: relative; height: auto; } /* Disable stacking on small mobile views to prevent clipping long grids */
+            #work-section { padding: 100px 20px; }
+            .portfolio-grid { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header Navigation -->
+    <nav>
+        <div class="logo">LENS & HORIZON</div>
+        <div class="nav-links">
+            <a href="#work-section">Work</a>
+            <a href="#contact-section">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Section 1: Hero Split-Screen (Pointers direct to target categories below) -->
+    <section id="hero-section" class="stack-section">
+        <div class="hero-side side-ground" onclick="filterPortfolio('ground')">
+            <div class="hero-content">
+                <i class="fa-solid fa-camera"></i>
+                <h1>Ground</h1>
+                <p>Photography & Cinema</p>
+            </div>
+        </div>
+        <div class="hero-side side-drone" onclick="filterPortfolio('drone')">
+            <div class="hero-content">
+                <i class="fa-solid fa-drone"></i>
+                <h1>Aerial</h1>
+                <p>Drone Videography & Mapping</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Selected Works Portfolio -->
+    <section id="work-section" class="stack-section">
+        <h2 class="section-title">Selected Works</h2>
+
+        <!-- Interactive Filter Tabs -->
+        <div class="filters">
+            <button class="filter-btn active" id="filter-all" onclick="filterPortfolio('all')">All</button>
+            <button class="filter-btn" id="filter-ground" onclick="filterPortfolio('ground')">Ground</button>
+            <button class="filter-btn" id="filter-drone" onclick="filterPortfolio('drone')">Aerial/Drone</button>
+        </div>
+
+        <!-- Dynamic Grid Layout -->
+        <div class="portfolio-grid">
+            <!-- Item 1 -->
+            <div class="grid-item" data-category="ground">
+                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="Ground Portrait">
+                <div class="item-overlay">
+                    <h3>Golden Hour Portraits</h3>
+                    <span>Ground Photography</span>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="grid-item" data-category="drone">
+                <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=80" alt="Drone Coastline">
+                <div class="item-overlay">
+                    <h3>Pacific Coastline</h3>
+                    <span>Drone Videography</span>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="grid-item" data-category="ground">
+                <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=600&q=80" alt="Cinematic Event">
+                <div class="item-overlay">
+                    <h3>Neon Nights</h3>
+                    <span>Cinematography</span>
+                </div>
+            </div>
+            <!-- Item 4 -->
+            <div class="grid-item" data-category="drone">
+                <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=600&q=80" alt="Drone Mountain">
+                <div class="item-overlay">
+                    <h3>Alpine Ridges</h3>
+                    <span>Aerial Photography</span>
+                </div>
+            </div>
+            <!-- Item 5 -->
+            <div class="grid-item" data-category="ground">
+                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80" alt="Studio Shoot">
+                <div class="item-overlay">
+                    <h3>Behind The Velvet Curtain</h3>
+                    <span>Commercial Video</span>
+                </div>
+            </div>
+            <!-- Item 6 -->
+            <div class="grid-item" data-category="drone">
+                <img src="https://images.unsplash.com/photo-1530982011887-3cc11cc85f3f?auto=format&fit=crop&w=600&q=80" alt="City Grid Drone">
+                <div class="item-overlay">
+                    <h3>Urban Geometry</h3>
+                    <span>Drone Photography</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Booking & Contact Form -->
+    <section id="contact-section" class="stack-section">
+        <div class="footer-content">
+            <h2>Let's Capture Something Incredible</h2>
+            <p>Available worldwide for ground-level productions and licensed commercial drone operations.</p>
+            <a href="mailto:yourbrand@email.com" class="contact-btn">Get In Touch</a>
+        </div>
+    </section>
+
+    <!-- JavaScript Handling Shrinking Transitions and Smart Anchors -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const gridItems = document.querySelectorAll('.grid-item');
+            
+            // 1. Intersection Observer for standard fade-in-on-scroll of grid content
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+            gridItems.forEach(item => imageObserver.observe(item));
+
+            // 2. Continuous Scroll Event for the Shrink-and-Disappear Stacking Effect
+            window.addEventListener('scroll', () => {
+                // We only apply shrinking on desktop displays to preserve mobile readability
+                if (window.innerWidth > 768) {
+                    const scrolled = window.scrollY;
+                    const vh = window.innerHeight;
+
+                    // --- Hero Section Control ---
+                    const hero = document.getElementById('hero-section');
+                    if (scrolled <= vh) {
+                        // Calculate shrinkage multiplier (1.0 down to 0.85)
+                        const scale = 1 - (scrolled / vh) * 0.15;
+                        const opacity = 1 - (scrolled / vh);
+                        hero.style.transform = `scale(${scale})`;
+                        hero.style.opacity = opacity;
+                    } else {
+                        hero.style.transform = `scale(0.85)`;
+                        hero.style.opacity = 0;
+                    }
+
+                    // --- Portfolio Section Control ---
+                    // This section shrinks as it approaches the Contact footer
+                    const work = document.getElementById('work-section');
+                    const workTop = work.offsetTop;
+                    if (scrolled >= workTop) {
+                        const relativeScroll = scrolled - workTop;
+                        const scale = 1 - (relativeScroll / vh) * 0.15;
+                        const opacity = 1 - (relativeScroll / vh);
+                        
+                        // We clamp values so it doesn't scale infinitely inside long grids
+                        if(opacity >= 0) {
+                            work.style.transform = `scale(${scale})`;
+                            work.style.opacity = opacity;
+                        }
+                    } else {
+                        work.style.transform = `scale(1)`;
+                        work.style.opacity = 1;
+                    }
+                }
+            });
+        });
+
+        // 3. Smart Link Routing & Filter Trigger Function
+        function filterPortfolio(category) {
+            // Smooth scroll directly down to the Work section grid container
+            document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
+
+            // Swap out active highlight styling on filter tabs
+            const tabs = document.querySelectorAll('.filter-btn');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            document.getElementById(`filter-${category}`).classList.add('active');
+
+            // Toggle element display properties across categories instantly
+            const items = document.querySelectorAll('.grid-item');
+            items.forEach(item => {
+                const itemCategory = item.getAttribute('data-category');
+                if (category === 'all' || category === itemCategory) {
+                    item.style.display = 'block';
+                    setTimeout(() => { item.classList.add('visible'); }, 50);
+                } else {
+                    item.classList.remove('visible');
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
