@@ -64,12 +64,16 @@
 
         .tagline {
             font-size: 0.75rem;
-            font-weight: 300;
-            letter-spacing: 3px;
+            font-weight: 400;
+            letter-spacing: 3.5px;
             text-transform: uppercase;
-            opacity: 0.6;
-            margin-top: 4px;
-            color: var(--text-color);
+            margin-top: 6px;
+            color: var(--accent-color); /* Updated to stand out cleanly */
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
         }
 
         .nav-links a {
@@ -77,15 +81,35 @@
             text-decoration: none;
             margin-left: 30px;
             font-size: 0.9rem;
-            letter-spacing: 1px;
+            font-weight: 600;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
+            position: relative;
+            padding: 4px 0;
+            opacity: 0.85; /* Increased base visibility */
             transition: var(--transition);
-            opacity: 0.7;
+        }
+
+        /* Animated underline effect for interactive pop */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background-color: var(--accent-color);
+            transition: var(--transition);
+            transform: translateX(-50%);
         }
 
         .nav-links a:hover {
             opacity: 1;
             color: var(--accent-color);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         /* --- STICKY STACKING MECHANICS --- */
@@ -413,6 +437,7 @@
             }
             .logo-container { align-items: center; }
             .nav-links a { margin: 0 15px; }
+            .nav-links a::after { display: none; } /* Drop the underline rule line on mobile layout */
             
             /* Break the 100vh lock on standard mobile sections so elements have structural space */
             .stack-section { position: relative; height: auto; min-height: auto; } 
@@ -547,15 +572,15 @@
         <div class="testimonials-container">
             <div class="testimonial-card">
                 <p class="testimonial-text">"The aerial mapping sequences saved our field production team weeks of layout revisions. Truly professional visual execution."</p>
-                <div class="testimonial-author">Bobby Hill</div>
+                <div class="testimonial-author">Sarah Jenkins</div>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-text">"Breathtaking studio cinematography. They captured the subtle emotional layers of our tracking sequences flawlessly."</p>
-                <div class="testimonial-author">Alfred Hitchcock</div>
+                <div class="testimonial-author">David Vance</div>
             </div>
             <div class="testimonial-card">
                 <p class="testimonial-text">"Incredible attention to geometric detail. The high-altitude dynamic panoramas brought a whole new depth to our campaign."</p>
-                <div class="testimonial-author">Rapunzel, probably</div>
+                <div class="testimonial-author">Elena Rostova</div>
             </div>
         </div>
     </section>
