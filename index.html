@@ -414,17 +414,21 @@
             .logo-container { align-items: center; }
             .nav-links a { margin: 0 15px; }
             
-            /* Break the 100vh lock on mobile so elements have structural space */
+            /* Break the 100vh lock on standard mobile sections so elements have structural space */
             .stack-section { position: relative; height: auto; min-height: auto; } 
 
-            /* Fix cramped hero layouts and buttons */
-            #hero-section { flex-direction: column; height: 100vh; }
-            .hero-side { padding: 60px 20px; flex: 1 !important; }
-            .hero-content h1 { font-size: 2rem; }
-            .hero-content i { font-size: 2.2rem; margin-bottom: 10px; }
+            /* Fix cramped hero layouts and ensure panels don't get cut off by the fixed nav */
+            #hero-section { 
+                flex-direction: column; 
+                margin-top: 135px; /* Safely offsets the fixed navigation column height */
+                height: calc(100vh - 135px); /* Forces the two panels to share remaining space exactly */
+            }
+            .hero-side { padding: 40px 20px; flex: 1 !important; }
+            .hero-content h1 { font-size: 1.8rem; }
+            .hero-content i { font-size: 2rem; margin-bottom: 8px; }
 
             /* Fix tightly-spaced title/filters styling */
-            #work-section { padding: 160px 20px 60px 20px; }
+            #work-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
             .filters { flex-wrap: wrap; gap: 10px; margin-bottom: 35px; }
             .filter-btn { padding: 8px 18px; font-size: 0.8rem; width: 100%; max-width: 200px; text-align: center; }
