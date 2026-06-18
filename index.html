@@ -148,7 +148,7 @@
             z-index: 2;
             height: auto;
             min-height: 100vh;
-            position: relative; /* Spans naturally to contain masonry grid */
+            position: relative; /* Spans naturally to contain grid */
             padding: 120px 50px 100px 50px;
             justify-content: flex-start;
             overflow-y: auto;
@@ -188,10 +188,11 @@
             border-color: var(--text-color);
         }
 
-        /* Dynamic Grid */
+        /* Dynamic Grid - MODIFIED for uniform image sizes */
         .portfolio-grid {
-            columns: 3 350px;
-            column-gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
             width: 100%;
             max-width: 1500px;
             margin: 0 auto;
@@ -199,8 +200,6 @@
 
         .grid-item {
             background-color: var(--card-bg);
-            margin-bottom: 25px;
-            break-inside: avoid;
             border-radius: 8px;
             overflow: hidden;
             position: relative;
@@ -214,9 +213,11 @@
             transform: translateY(0);
         }
 
+        /* Image Sizing Control - MODIFIED for fixed width/height constraint */
         .grid-item img {
             width: 100%;
-            height: auto;
+            height: 400px; /* Forces identical height bounds */
+            object-fit: cover; /* Crops nicely without stretching */
             display: block;
             transition: var(--transition);
         }
@@ -340,7 +341,8 @@
             #hero-section { flex-direction: column; }
             .stack-section { position: relative; height: auto; } /* Disable stacking on small mobile views to prevent clipping long grids */
             #work-section { padding: 100px 20px; }
-            .portfolio-grid { columns: 1; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .grid-item img { height: 300px; } /* Slightly shorter uniform height for mobile screens */
             #contact-section { height: auto; padding: 80px 20px 40px 20px; }
             .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
             .footer-socials a { margin: 0 10px; }
