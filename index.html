@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lens & Horizon | Photography & Videography</title>
-    <!-- Google Fonts & FontAwesome for Icons -->
+    <title>SOARTIZ MEDIA | Photography & Videography</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -123,11 +122,11 @@
         }
 
         .side-ground {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .side-drone {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .hero-side:hover {
@@ -164,7 +163,7 @@
             z-index: 2;
             height: auto;
             min-height: 100vh;
-            position: relative; 
+            position: relative;
             padding: 140px 50px 100px 50px;
             justify-content: flex-start;
             overflow-y: auto;
@@ -206,8 +205,9 @@
 
         /* Dynamic Grid */
         .portfolio-grid {
-            columns: 3 350px;
-            column-gap: 25px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 25px;
             width: 100%;
             max-width: 1500px;
             margin: 0 auto;
@@ -215,8 +215,6 @@
 
         .grid-item {
             background-color: var(--card-bg);
-            margin-bottom: 25px;
-            break-inside: avoid;
             border-radius: 8px;
             overflow: hidden;
             position: relative;
@@ -230,9 +228,11 @@
             transform: translateY(0);
         }
 
+        /* Image Sizing Control */
         .grid-item img {
             width: 100%;
-            height: auto;
+            height: 250px;
+            object-fit: cover;
             display: block;
             transition: var(--transition);
         }
@@ -251,6 +251,8 @@
             padding: 30px;
             opacity: 0;
             transition: var(--transition);
+            z-index: 2;
+            pointer-events: none;
         }
 
         .grid-item:hover .item-overlay {
@@ -412,7 +414,7 @@
             .logo-container { align-items: center; }
             .nav-links a { margin: 0 15px; }
             
-            /* Break the 100vh lock on mobile so nothing clips or forces layouts together */
+            /* Break the 100vh lock on mobile so elements have structural space */
             .stack-section { position: relative; height: auto; min-height: auto; } 
 
             /* Fix cramped hero layouts and buttons */
@@ -426,9 +428,12 @@
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
             .filters { flex-wrap: wrap; gap: 10px; margin-bottom: 35px; }
             .filter-btn { padding: 8px 18px; font-size: 0.8rem; width: 100%; max-width: 200px; text-align: center; }
-            .portfolio-grid { columns: 1; }
+            
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .grid-item img { height: 200px; }
+            .grid-item .video-container { height: 200px !important; }
 
-            /* Testimonials mobile padding spacing adjustments */
+            /* Testimonials mobile configuration */
             #testimonials-section { padding: 80px 20px; }
             .testimonial-card { padding: 30px 20px; }
 
@@ -441,11 +446,10 @@
 </head>
 <body>
 
-    <!-- Header Navigation -->
     <nav>
         <div class="logo-container">
             <div class="logo">SOARTIZ MEDIA</div>
-            <div class="tagline">Elevate. Animate. Captivate.</div>
+            <div class="tagline">Elevate | Animate | Captivate</div>
         </div>
         <div class="nav-links">
             <a href="#work-section">Work</a>
@@ -454,80 +458,78 @@
         </div>
     </nav>
 
-    <!-- Section 1: Hero Split-Screen -->
     <section id="hero-section" class="stack-section">
         <div class="hero-side side-ground" onclick="filterPortfolio('ground')">
             <div class="hero-content">
                 <i class="fa-solid fa-camera"></i>
                 <h1>Ground</h1>
-                <p>Photography & Cinema</p>
+                <p>Events, Real Estate, and more</p>
             </div>
         </div>
         <div class="hero-side side-drone" onclick="filterPortfolio('drone')">
             <div class="hero-content">
                 <i class="fa-solid fa-drone"></i>
                 <h1>Aerial</h1>
-                <p>Drone Videography & Mapping</p>
+                <p>Real Estate, Construction Progress, and more</p>
             </div>
         </div>
     </section>
 
-    <!-- Section 2: Selected Works Portfolio -->
     <section id="work-section" class="stack-section">
         <h2 class="section-title">Selected Works</h2>
 
-        <!-- Interactive Filter Tabs -->
         <div class="filters">
             <button class="filter-btn active" id="filter-all" onclick="filterPortfolio('all')">All</button>
             <button class="filter-btn" id="filter-ground" onclick="filterPortfolio('ground')">Ground</button>
-            <button class="filter-btn" id="filter-drone" onclick="filterPortfolio('drone')">Aerial/Drone</button>
+            <button class="filter-btn" id="filter-drone" onclick="filterPortfolio('drone')">Aerial</button>
         </div>
 
-        <!-- Dynamic Grid Layout -->
         <div class="portfolio-grid">
-            <!-- Item 1 -->
             <div class="grid-item" data-category="ground">
-                <img src="https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=600&q=80" alt="Ground Portrait">
+                <img src="assets/images/confTable.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Conference room with large artisan table">
                 <div class="item-overlay">
-                    <h3>Golden Hour Portraits</h3>
-                    <span>Ground Photography</span>
+                    <h3>Commercial Interiors</h3>
+                    <span>Real Estate</span>
                 </div>
             </div>
-            <!-- Item 2 -->
             <div class="grid-item" data-category="drone">
-                <img src="https://images.unsplash.com/photo-1473968512647-3e447244af8f?auto=format&fit=crop&w=600&q=80" alt="Drone Coastline">
+                <img src="assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="New housing development under construction">
                 <div class="item-overlay">
-                    <h3>Pacific Coastline</h3>
-                    <span>Drone Videography</span>
+                    <h3>Residential Development Progress</h3>
+                    <span>Construction</span>
                 </div>
             </div>
-            <!-- Item 3 -->
             <div class="grid-item" data-category="ground">
-                <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=600&q=80" alt="Cinematic Event">
+                <img src="https://images.unsplash.com/photo-1519751138087-5bf79df62d5b?auto=format&fit=crop&w=600&h=400&q=80" alt="Cinematic Event">
                 <div class="item-overlay">
                     <h3>Neon Nights</h3>
                     <span>Cinematography</span>
                 </div>
             </div>
-            <!-- Item 4 -->
             <div class="grid-item" data-category="drone">
-                <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=600&q=80" alt="Drone Mountain">
+                <img src="https://images.unsplash.com/photo-1504609773096-104ff2c73ba4?auto=format&fit=crop&w=600&h=400&q=80" alt="Drone Mountain">
                 <div class="item-overlay">
                     <h3>Alpine Ridges</h3>
                     <span>Aerial Photography</span>
                 </div>
             </div>
-            <!-- Item 5 -->
             <div class="grid-item" data-category="ground">
-                <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=600&q=80" alt="Studio Shoot">
+                <div class="video-container" style="position: relative; width: 100%; height: 250px;">
+                    <iframe 
+                        src="https://www.youtube.com/embed/SG25dLuapzc?autoplay=1&mute=1&loop=1&playlist=SG25dLuapzc&controls=0&showinfo=0&rel=0" 
+                        title="Justina + Dan"
+                        style="width: 100%; height: 100%; border: none; object-fit: cover;"
+                        allow="autoplay; encrypted-media" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
                 <div class="item-overlay">
-                    <h3>Behind The Velvet Curtain</h3>
-                    <span>Commercial Video</span>
+                    <h3>Justina + Dan</h3>
+                    <span>Event</span>
                 </div>
             </div>
-            <!-- Item 6 -->
             <div class="grid-item" data-category="drone">
-                <img src="https://images.unsplash.com/photo-1530982011887-3cc11cc85f3f?auto=format&fit=crop&w=600&q=80" alt="City Grid Drone">
+                <img src="https://images.unsplash.com/photo-1530982011887-3cc11cc85f3f?auto=format&fit=crop&w=600&h=400&q=80" alt="City Grid Drone">
                 <div class="item-overlay">
                     <h3>Urban Geometry</h3>
                     <span>Drone Photography</span>
@@ -536,7 +538,6 @@
         </div>
     </section>
 
-    <!-- New Section 3: Testimonials Layer -->
     <section id="testimonials-section" class="stack-section">
         <h2 class="section-title">Client Perspective</h2>
         <div class="testimonials-container">
@@ -555,27 +556,24 @@
         </div>
     </section>
 
-    <!-- Section 4: Booking & Copyright Footer -->
     <section id="contact-section" class="stack-section">
         <div class="footer-container">
             <div class="footer-content">
                 <h2>Let's Capture Something Incredible</h2>
-                <p>Available worldwide for ground-level productions and licensed commercial drone operations.</p>
-                <a href="mailto:yourbrand@email.com" class="contact-btn">Get In Touch</a>
+                <p>Available for ground-level productions and licensed commercial drone operations.</p>
+                <a href="mailto:richard@soartiz.com" class="contact-btn">Get In Touch</a>
             </div>
             
             <div class="footer-bottom">
                 <p class="copyright">&copy; 2021-2026 SOARTIZ MEDIA. All Rights Reserved.</p>
                 <div class="footer-socials">
-                    <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#" aria-label="Vimeo"><i class="fa-brands fa-vimeo-v"></i></a>
+                    <a href="https://www.instagram.com/soartizmedia" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@SoartizMedia" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- JavaScript Handling Shrinking Transitions and Smart Anchors -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
             const gridItems = document.querySelectorAll('.grid-item');
