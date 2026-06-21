@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOARTIZ MEDIA | Photography & Videography</title>
+    <title>SOARTIZ MEDIA | Option 1: Ghost Cards</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -134,7 +134,7 @@
         }
 
         /* ==========================================================================
-           4. SPLIT HERO COMPONENT
+           4. SPLIT HERO COMPONENT (OPTION 1: GHOST CARDS)
            ========================================================================== */
         #hero-section {
             display: flex;
@@ -168,15 +168,15 @@
         }
 
         .side-ground .image-layer {
-            background-image: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.6)), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .side-drone .image-layer {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.45) 60%, rgba(0, 0, 0, 0.65) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .hero-side:hover {
-            flex: 1.3;
+            flex: 1.1; /* Minimal expansion to maximize stable image visibility */
         }
 
         .hero-side:hover .image-layer {
@@ -189,28 +189,35 @@
             z-index: 2;
             transition: var(--transition);
             pointer-events: none;
+            
+            /* Glassmorphic target constraints */
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px 40px;
+            border-radius: 12px;
+            max-width: 280px;
+            width: 90%;
         }
 
         .hero-content i {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            opacity: 0.8;
+            font-size: 2.2rem;
+            margin-bottom: 12px;
+            color: var(--accent-color);
             filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
         }
 
         .hero-content h1 {
-            font-size: 2.5rem;
+            font-size: 1.8rem;
             font-weight: 600;
-            letter-spacing: 3px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
         }
 
         .hero-content p {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-top: 10px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 8px;
         }
 
         /* ==========================================================================
@@ -273,7 +280,7 @@
             border-radius: 8px;
             overflow: hidden;
             position: relative;
-            opacity: 0; /* Managed beautifully by interaction observer API loading */
+            opacity: 0;
             transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -499,8 +506,9 @@
                 height: calc(100vh - 135px); 
             }
             .hero-side { padding: 40px 20px; flex: 1 !important; border-right: none !important; }
-            .hero-content h1 { font-size: 1.8rem; }
-            .hero-content i { font-size: 2rem; margin-bottom: 8px; }
+            .hero-content { max-width: 100%; }
+            .hero-content h1 { font-size: 1.5rem; }
+            .hero-content i { font-size: 1.8rem; margin-bottom: 8px; }
 
             #work-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
@@ -601,9 +609,6 @@
     </section>
 
     <script>
-        /* ==========================================================================
-           DATA LAYER: Add, remove, or change items easily in this array
-           ========================================================================== */
         const portfolioItems = [
             {
                 type: 'image',
@@ -663,15 +668,11 @@
             }
         ];
 
-        /* ==========================================================================
-           ENGINE RENDERING CORE MECHANICS
-           ========================================================================== */
         function renderPortfolioGrid() {
             const container = document.getElementById('portfolio-grid-target');
             if (!container) return;
 
             container.innerHTML = portfolioItems.map(item => {
-                // Generate asset inner wrapper depending on media data type structure
                 const mediaHTML = item.type === 'video' 
                     ? `<div class="video-container">
                            <iframe 
@@ -694,12 +695,9 @@
             }).join('');
         }
 
-        // Initialize script events
         document.addEventListener("DOMContentLoaded", () => {
-            // 1. Programmatically assemble grid items from arrays
             renderPortfolioGrid();
 
-            // 2. Set up element triggers and observer arrays
             const gridItems = document.querySelectorAll('.grid-item');
             const imageObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
@@ -712,7 +710,6 @@
 
             gridItems.forEach(item => imageObserver.observe(item));
 
-            // 3. Keep layout transform calculations for desktop users
             window.addEventListener('scroll', () => {
                 if (window.innerWidth > 768) {
                     const scrolled = window.scrollY;
@@ -747,9 +744,6 @@
             });
         });
 
-        /* ==========================================================================
-           CONTROLLER FUNCTIONS
-           ========================================================================== */
         function filterPortfolio(category) {
             document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
 
