@@ -15,10 +15,11 @@
             --bg-color: #0a0a0a;
             --text-color: #ffffff;
             --accent-color: #3498db;
-            --accent-compliment: #db7734; /* Complimentary warm accent tone */
+            --accent-compliment: #db7734; 
             --card-bg: #141414;
             --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             --zoom-transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --text-shadow-heavy: 0 4px 18px rgba(0, 0, 0, 0.95), 0 2px 4px rgba(0, 0, 0, 0.85);
         }
 
         * {
@@ -153,8 +154,8 @@
         }
 
         .hero-side {
-            flex: 1;
             position: relative;
+            flex: 1;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -173,25 +174,32 @@
             background-size: cover;
             background-position: center;
             filter: grayscale(25%) contrast(95%);
-            transition: var(--zoom-transition);
+            transition: var(--zoom-transition), opacity 0.4s ease;
             z-index: 1;
         }
 
+        /* Increased black floor on core imagery mask gradients */
         .side-ground .image-layer {
-            background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.5)), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .side-drone .image-layer {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.6) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .hero-side:hover {
             flex: 1.1;
         }
 
+        /* Drop opacity slightly on hover to amplify readability pockets */
         .hero-side:hover .image-layer {
             transform: scale(1.04);
             filter: grayscale(0%) contrast(100%);
+            opacity: 0.85;
+        }
+
+        .hero-side.mobile-active .image-layer {
+            opacity: 0.85;
         }
 
         .hero-content {
@@ -210,12 +218,13 @@
             margin-bottom: 14px;
             color: #ffffff;
             transition: var(--transition);
-            filter: drop-shadow(0 4px 12px rgba(0,0,0,0.7));
+            filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
         }
 
         .hero-side:hover .hero-content i {
             color: var(--accent-color);
             transform: translateY(-4px);
+            filter: drop-shadow(0 6px 16px rgba(0, 0, 0, 0.95));
         }
 
         .hero-content h1 {
@@ -223,7 +232,7 @@
             font-weight: 300;
             letter-spacing: 3px;
             text-transform: uppercase;
-            text-shadow: 0 4px 14px rgba(0,0,0,0.8);
+            text-shadow: var(--text-shadow-heavy);
             position: relative;
             display: inline-block;
             padding-bottom: 12px;
@@ -231,7 +240,8 @@
             animation: slideUpReveal 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             transition: font-weight 0.6s cubic-bezier(0.25, 1, 0.5, 1),
                         letter-spacing 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-                        color 0.4s ease;
+                        color 0.4s ease,
+                        text-shadow 0.4s ease;
         }
 
         @keyframes slideUpReveal {
@@ -250,6 +260,7 @@
             font-weight: 700;
             letter-spacing: 6px;
             color: var(--accent-compliment);
+            text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95), 0 0 10px rgba(219, 119, 52, 0.2);
         }
 
         /* Mobile Title Active State Styles */
@@ -257,6 +268,7 @@
             font-weight: 700;
             letter-spacing: 6px;
             color: var(--accent-compliment);
+            text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95), 0 0 10px rgba(219, 119, 52, 0.2);
         }
 
         .hero-content h1::after {
@@ -269,28 +281,29 @@
             background-color: var(--accent-color);
             transform: translateX(-50%);
             transition: var(--transition);
-            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.5);
+            box-shadow: 0 2px 8px rgba(52, 152, 219, 0.6);
         }
 
         .hero-side:hover .hero-content h1::after,
         .hero-content h1.active-title::after {
             width: 90px;
             background-color: var(--accent-compliment);
-            box-shadow: 0 2px 8px rgba(219, 119, 52, 0.5);
+            box-shadow: 0 2px 12px rgba(219, 119, 52, 0.7);
         }
 
         .hero-content p {
             font-size: 0.9rem;
             font-weight: 400;
             letter-spacing: 1px;
-            opacity: 0.8;
+            opacity: 0.9;
             margin-top: 14px;
-            text-shadow: 0 3px 10px rgba(0,0,0,0.9);
         }
 
         /* Dynamic selection visual hint state styles */
         .hero-desc {
+            display: inline-block;
             transition: var(--transition);
+            text-shadow: var(--text-shadow-heavy);
         }
 
         .hero-desc.primed-for-click {
@@ -299,11 +312,12 @@
             opacity: 1;
             letter-spacing: 1.5px;
             text-transform: uppercase;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 8px rgba(52, 152, 219, 0.3);
             animation: pulseText 1.5s infinite ease-in-out;
         }
 
         @keyframes pulseText {
-            0%, 100% { opacity: 0.7; }
+            0%, 100% { opacity: 0.8; }
             50% { opacity: 1; }
         }
 
@@ -635,7 +649,7 @@
             .hero-split-container {
                 flex-direction: column;
             }
-            .hero-side { padding: 45px 20px; flex: 1 !important; border-right: none !important; }
+            .hero-side { padding: 55px 20px; flex: 1 !important; border-right: none !important; }
             .hero-content { max-width: 100%; }
             .hero-content h1 { font-size: 1.8rem; }
             .hero-content i { font-size: 2rem; margin-bottom: 8px; }
@@ -781,7 +795,7 @@
                 <div class="hero-content">
                     <i class="fa-solid fa-camera"></i>
                     <h1>ground</h1>
-                    <p><span class="hero-desc" data-original="down-to-earth | intimate details">down-to-earth | intimate details</span></p>
+                    <p><span class="hero-desc" data-original="down-to-earth perspective | intimate details">down-to-earth perspective | intimate details</span></p>
                 </div>
             </div>
             <div class="hero-side side-drone" 
@@ -961,9 +975,10 @@
                 const alternateCategory = category === 'ground' ? 'drone' : 'ground';
                 resetClickState(alternateCategory);
 
+                currentSide.classList.add('mobile-active'); // Darken overlay container
                 descElement.textContent = "Tap here to see work";
                 descElement.classList.add('primed-for-click');
-                titleElement.classList.add('active-title'); // Apply complementary color on mobile tap
+                titleElement.classList.add('active-title'); 
 
                 interactiveClickState[category].timer = setTimeout(() => {
                     resetClickState(category);
@@ -983,6 +998,7 @@
         function resetClickState(category) {
             const sideElement = document.querySelector(`.side-${category}`);
             if (sideElement) {
+                sideElement.classList.remove('mobile-active');
                 const descElement = sideElement.querySelector('.hero-desc');
                 const titleElement = sideElement.querySelector('h1');
                 if (descElement) {
@@ -990,7 +1006,7 @@
                     descElement.classList.remove('primed-for-click');
                 }
                 if (titleElement) {
-                    titleElement.classList.remove('active-title'); // Clear mobile color modification
+                    titleElement.classList.remove('active-title'); 
                 }
             }
             if (interactiveClickState[category].timer) {
