@@ -209,11 +209,22 @@
             padding: 20px;
             max-width: 380px;
             width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Dedicated Layout Grouping for Icon on its own line above text */
+        .hero-title-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
         }
 
         .hero-content i {
             font-size: 2.4rem;
-            margin-bottom: 14px;
+            margin-bottom: 16px; /* Generous gap buffer so scaling text never crowd it */
             color: #ffffff;
             transition: var(--transition);
             filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
@@ -253,14 +264,14 @@
             }
         }
 
-        /* Desktop Title Hover State Styles (Kept text color clean white) */
+        /* Desktop Title Hover State Styles */
         .hero-side:hover .hero-content h1 {
             font-weight: 700;
             letter-spacing: 6px;
             text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95);
         }
 
-        /* Mobile Title Active State Styles (Kept text color clean white) */
+        /* Mobile Title Active State Styles */
         .hero-content h1.active-title {
             font-weight: 700;
             letter-spacing: 6px;
@@ -648,7 +659,7 @@
             .hero-side { padding: 55px 20px; flex: 1 !important; border-right: none !important; }
             .hero-content { max-width: 100%; }
             .hero-content h1 { font-size: 1.8rem; }
-            .hero-content i { font-size: 2rem; margin-bottom: 8px; }
+            .hero-content i { font-size: 2rem; margin-bottom: 10px; }
 
             #work-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
@@ -789,8 +800,10 @@
                  onmouseleave="handleHeroLeave('ground')">
                 <div class="image-layer"></div>
                 <div class="hero-content">
-                    <i class="fa-solid fa-camera"></i>
-                    <h1>ground</h1>
+                    <div class="hero-title-group">
+                        <i class="fa-solid fa-camera"></i>
+                        <h1>ground</h1>
+                    </div>
                     <p><span class="hero-desc" data-original="down-to-earth perspective | intimate details">down-to-earth perspective | intimate details</span></p>
                 </div>
             </div>
@@ -800,8 +813,10 @@
                  onmouseleave="handleHeroLeave('drone')">
                 <div class="image-layer"></div>
                 <div class="hero-content">
-                    <i class="fa-solid fa-helicopter"></i>
-                    <h1>aerial</h1>
+                    <div class="hero-title-group">
+                        <i class="fa-solid fa-helicopter"></i>
+                        <h1>aerial</h1>
+                    </div>
                     <p><span class="hero-desc" data-original="soaring dynamics | the big picture">soaring dynamics | the big picture</span></p>
                 </div>
             </div>
