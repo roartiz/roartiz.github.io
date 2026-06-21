@@ -14,7 +14,7 @@
             --accent-color: #3498db;
             --card-bg: #141414;
             --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            --zoom-transition = transform 3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            --zoom-transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
         * {
@@ -296,6 +296,78 @@
             transform: scale(1.05);
         }
 
+        /* Video Asset Wrapper Layouts */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background-color: #000;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: opacity 0.4s ease;
+            z-index: 2;
+        }
+
+        .iframe-target {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .iframe-target iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            object-fit: cover;
+        }
+
+        /* Premium Video Interaction Accent Play Icon */
+        .play-accent-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 55px;
+            height: 55px;
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 3;
+            pointer-events: none;
+            transition: var(--transition);
+        }
+
+        .play-accent-icon i {
+            font-size: 1.1rem;
+            color: #fff;
+            margin-left: 3px; /* Centers the visual weight of play triangle */
+        }
+
+        .grid-item:hover .play-accent-icon {
+            background: var(--accent-color);
+            border-color: var(--accent-color);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        /* Complete state kill drop when active video is loaded */
+        .grid-item.video-playing .video-placeholder,
+        .grid-item.video-playing .play-accent-icon {
+            opacity: 0;
+            pointer-events: none;
+        }
+
         .item-overlay {
             position: absolute;
             inset: 0;
@@ -306,7 +378,7 @@
             padding: 30px;
             opacity: 0;
             transition: var(--transition);
-            z-index: 2;
+            z-index: 4; /* Keeps descriptive titles safely sitting above playing streams */
             pointer-events: none;
         }
 
@@ -487,9 +559,8 @@
             .filter-btn { padding: 8px 18px; font-size: 0.8rem; width: 100%; max-width: 200px; text-align: center; }
             
             .portfolio-grid { grid-template-columns: 1fr; }
-            .grid-item img { height: 200px; }
-            .grid-item .video-container { height: 200px !important; }
-
+            .grid-item img, .video-wrapper { height: 200px; }
+            
             #testimonials-section { padding: 80px 20px; }
             .testimonial-card { padding: 30px 20px; }
 
@@ -549,21 +620,19 @@
                     <span>Real Estate</span>
                 </div>
             </div>
-            <div class="grid-item" data-category="drone">
-                <div class="video-container" style="position: relative; width: 100%; height: 250px;">
-                    <iframe 
-                        src="https://www.youtube.com/embed/JG9Ewqpa6SE?autoplay=1&mute=1&loop=1&playlist=JG9Ewqpa6SE&controls=0&showinfo=0&rel=0&start=15" 
-                        title="Tour of Homes"
-                        style="width: 100%; height: 100%; border: none; object-fit: cover;"
-                        allow="autoplay; encrypted-media" 
-                        allowfullscreen>
-                    </iframe>
+
+            <div class="grid-item" data-category="drone" onclick="activateVideo(this, 'JG9Ewqpa6SE', 15)">
+                <div class="video-wrapper">
+                    <img class="video-placeholder" src="assets/images/tourOfHomes_thumb.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Tour of Homes Preview">
+                    <div class="iframe-target"></div>
+                    <div class="play-accent-icon"><i class="fa-solid fa-play"></i></div>
                 </div>
                 <div class="item-overlay">
                     <h3>Tour of Homes</h3>
                     <span>Events</span>
                 </div>
             </div>
+
             <div class="grid-item" data-category="drone">
                 <img src="assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="New housing development under construction">
                 <div class="item-overlay">
@@ -571,6 +640,7 @@
                     <span>Construction</span>
                 </div>
             </div>
+
             <div class="grid-item" data-category="drone">
                 <img src="assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Apartment complex leasing office">
                 <div class="item-overlay">
@@ -578,36 +648,31 @@
                     <span>Real Estate</span>
                 </div>
             </div>
-            <div class="grid-item" data-category="drone">
-                <div class="video-container" style="position: relative; width: 100%; height: 250px;">
-                    <iframe 
-                        src="https://www.youtube.com/embed/JG9Ewqpa6SE?autoplay=1&mute=1&loop=1&playlist=JG9Ewqpa6SE&controls=0&showinfo=0&rel=0" 
-                        title="Tour of Homes"
-                        style="width: 100%; height: 100%; border: none; object-fit: cover;"
-                        allow="autoplay; encrypted-media" 
-                        allowfullscreen>
-                    </iframe>
+
+            <div class="grid-item" data-category="drone" onclick="activateVideo(this, 'JG9Ewqpa6SE', 0)">
+                <div class="video-wrapper">
+                    <img class="video-placeholder" src="assets/images/aerialResidential_thumb.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Aerial Residential Preview">
+                    <div class="iframe-target"></div>
+                    <div class="play-accent-icon"><i class="fa-solid fa-play"></i></div>
                 </div>
                 <div class="item-overlay">
                     <h3>Tour of Homes</h3>
                     <span>Events</span>
                 </div>
             </div>
-            <div class="grid-item" data-category="drone">
-                <div class="video-container" style="position: relative; width: 100%; height: 250px;">
-                    <iframe 
-                        src="https://www.youtube.com/embed/D6MdGFrOEII?autoplay=1&mute=1&loop=1&playlist=D6MdGFrOEII&controls=0&showinfo=0&rel=0&start=9" 
-                        title="Justina + Dan"
-                        style="width: 100%; height: 100%; border: none; object-fit: cover;"
-                        allow="autoplay; encrypted-media" 
-                        allowfullscreen>
-                    </iframe>
+
+            <div class="grid-item" data-category="drone" onclick="activateVideo(this, 'D6MdGFrOEII', 9)">
+                <div class="video-wrapper">
+                    <img class="video-placeholder" src="assets/images/foundation_thumb.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Foundation Development Video Preview">
+                    <div class="iframe-target"></div>
+                    <div class="play-accent-icon"><i class="fa-solid fa-play"></i></div>
                 </div>
                 <div class="item-overlay">
                     <h3>Foundation Progress</h3>
                     <span>Construction</span>
                 </div>
             </div>
+
             <div class="grid-item" data-category="ground">
                 <img src="assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Huey Magoo's restaurant">
                 <div class="item-overlay">
@@ -723,7 +788,9 @@
 
             const tabs = document.querySelectorAll('.filter-btn');
             tabs.forEach(tab => tab.classList.remove('active'));
-            document.getElementById(`filter-${category}`).classList.add('active');
+            
+            const targetedButton = document.getElementById(`filter-${category}`);
+            if(targetedButton) targetedButton.classList.add('active');
 
             const items = document.querySelectorAll('.grid-item');
             items.forEach(item => {
@@ -734,8 +801,32 @@
                 } else {
                     item.classList.remove('visible');
                     item.style.display = 'none';
+                    
+                    // Cleanup active running players when user clicks to filter them away
+                    if(item.classList.contains('video-playing')) {
+                        item.classList.remove('video-playing');
+                        const target = item.querySelector('.iframe-target');
+                        if(target) target.innerHTML = '';
+                    }
                 }
             });
+        }
+
+        function activateVideo(element, videoId, startTime = 0) {
+            if (element.classList.contains('video-playing')) return;
+
+            const targetContainer = element.querySelector('.iframe-target');
+            const cleanEmbedUrl = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&rel=0&showinfo=0&iv_load_policy=3&modestbranding=1&start=${startTime}`;
+            
+            targetContainer.innerHTML = `
+                <iframe 
+                    src="${cleanEmbedUrl}" 
+                    allow="autoplay; encrypted-media" 
+                    allowfullscreen>
+                </iframe>
+            `;
+            
+            element.classList.add('video-playing');
         }
     </script>
 </body>
