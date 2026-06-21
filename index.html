@@ -207,8 +207,8 @@
             pointer-events: none;
             background: transparent; 
             padding: 20px;
-            max-width: 380px;
-            width: 90%;
+            max-width: 420px;
+            width: 95%;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -224,7 +224,7 @@
 
         .hero-content i {
             font-size: 2.4rem;
-            margin-bottom: 16px; /* Generous gap buffer so scaling text never crowd it */
+            margin-bottom: 16px; 
             color: #ffffff;
             transition: var(--transition);
             filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.95));
@@ -303,29 +303,39 @@
             font-weight: 400;
             letter-spacing: 1px;
             opacity: 0.9;
-            margin-top: 14px;
+            margin-top: 18px;
+            width: 100%;
+            display: flex;
+            justify-content: center;
         }
 
-        /* Dynamic selection visual hint state styles */
+        /* Dynamic selection visual hint styling */
         .hero-desc {
             display: inline-block;
-            transition: var(--transition);
+            transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             text-shadow: var(--text-shadow-heavy);
         }
 
+        /* Enhanced prominence layout when action triggered */
         .hero-desc.primed-for-click {
-            color: var(--accent-color);
-            font-weight: 600;
+            color: #ffffff;
+            font-weight: 700;
             opacity: 1;
-            letter-spacing: 1.5px;
+            letter-spacing: 2px;
             text-transform: uppercase;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.95), 0 0 8px rgba(52, 152, 219, 0.3);
-            animation: pulseText 1.5s infinite ease-in-out;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid rgba(52, 152, 219, 0.6);
+            padding: 10px 24px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(52, 152, 219, 0.2);
+            text-shadow: none;
+            animation: pulseScaleHint 2s infinite ease-in-out;
         }
 
-        @keyframes pulseText {
-            0%, 100% { opacity: 0.8; }
-            50% { opacity: 1; }
+        @keyframes pulseScaleHint {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(52, 152, 219, 0.2); }
+            50% { transform: scale(1.04); border-color: rgba(52, 152, 219, 0.9); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8), 0 0 20px rgba(52, 152, 219, 0.4); }
         }
 
         /* ==========================================================================
@@ -660,6 +670,7 @@
             .hero-content { max-width: 100%; }
             .hero-content h1 { font-size: 1.8rem; }
             .hero-content i { font-size: 2rem; margin-bottom: 10px; }
+            .hero-desc.primed-for-click { padding: 8px 18px; font-size: 0.8rem; }
 
             #work-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
