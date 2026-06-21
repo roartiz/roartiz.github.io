@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOARTIZ MEDIA | Photo & Video | Camera + Drone</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2=family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -945,211 +945,192 @@
                 startTime: 0,
                 title: 'Site Timelapse',
                 subtitle: 'Construction'
-            },            
-            {
-                type: 'image',
-                category: 'ground',
-                src: 'assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: "Huey Magoo's restaurant",
-                title: 'Foodservice',
-                subtitle: 'Real Estate'
-            },            
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'D6MdGFrOEII',
-                startTime: 0,
-                title: 'Foundation Progress',
-                subtitle: 'Construction'
-            },
+            }          
         ];
 
-        let interactiveClickState = {
-            ground: { count: 0, timer: null },
-            drone: { count: 0, timer: null }
-        };
+        // ==========================================================================
+        // PORTFOLIO ENGINE & YOUTUBE PLAYER INTEGRATION
+        // ==========================================================================
+        let ytApiReady = false;
+        const activePlayers = [];
 
-        // Desktop Hover Trigger Engines
-        function handleHeroHover(category) {
-            if (window.innerWidth > 768) {
-                const sideElement = document.querySelector(`.side-${category}`);
-                const descElement = sideElement.querySelector('.hero-desc');
-                descElement.textContent = "Click to see work";
-                descElement.classList.add('primed-for-click');
-            }
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         }
 
-        function handleHeroLeave(category) {
-            if (window.innerWidth > 768) {
-                const sideElement = document.querySelector(`.side-${category}`);
-                const descElement = sideElement.querySelector('.hero-desc');
-                descElement.textContent = descElement.getAttribute('data-original');
-                descElement.classList.remove('primed-for-click');
-            }
+        function onYouTubeIframeAPIReady() {
+            ytApiReady = true;
+            initializeVideos();
         }
 
-        // Unified Execution Route Selector
-        function handleHeroClick(event, category) {
-            if (window.innerWidth > 768) {
-                filterPortfolio(category);
-                const workSection = document.getElementById('work-section');
-                if (workSection) {
-                    workSection.scrollIntoView({ behavior: 'smooth' });
+        function renderPortfolioGrid() {
+            const target = document.getElementById('portfolio-grid-target');
+            if (!target) return;
+            target.innerHTML = '';
+
+            portfolioItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = `grid-item data-item-type-${item.category}`;
+                card.setAttribute('data-category', item.category);
+
+                let mediaHTML = '';
+                if (item.type === 'image') {
+                    mediaHTML = `<img src="${item.src}" alt="${item.alt || ''}" loading="lazy">`;
+                } else if (item.type === 'video') {
+                    const uniqueVideoId = `yt-player-${index}`;
+                    mediaHTML = `
+                        <div class="video-container" id="container-${uniqueVideoId}">
+                            <div id="${uniqueVideoId}" data-embed="${item.embedId}" data-start="${item.startTime || 0}"></div>
+                        </div>
+                    `;
                 }
-                return;
+
+                card.innerHTML = `
+                    ${mediaHTML}
+                    <div class="item-overlay">
+                        <h3>${item.title}</h3>
+                        <span>${item.subtitle}</span>
+                    </div>
+                `;
+                target.appendChild(card);
+            });
+
+            if (ytApiReady) {
+                initializeVideos();
             }
 
-            const currentSide = event.currentTarget;
-            const descElement = currentSide.querySelector('.hero-desc');
-            const titleElement = currentSide.querySelector('h1');
-            
-            interactiveClickState[category].count++;
-
-            if (interactiveClickState[category].count === 1) {
-                const alternateCategory = category === 'ground' ? 'drone' : 'ground';
-                resetClickState(alternateCategory);
-
-                currentSide.classList.add('mobile-active'); 
-                descElement.textContent = "Tap here to see work";
-                descElement.classList.add('primed-for-click');
-                titleElement.classList.add('active-title'); 
-
-                interactiveClickState[category].timer = setTimeout(() => {
-                    resetClickState(category);
-                }, 4000);
-
-            } else if (interactiveClickState[category].count >= 2) {
-                filterPortfolio(category);
-                resetClickState(category);
-
-                const workSection = document.getElementById('work-section');
-                if (workSection) {
-                    workSection.scrollIntoView({ behavior: 'smooth' });
-                }
-            }
+            setTimeout(() => {
+                document.querySelectorAll('.grid-item').forEach(el => el.classList.add('visible'));
+            }, 50);
         }
 
-        function resetClickState(category) {
-            const sideElement = document.querySelector(`.side-${category}`);
-            if (sideElement) {
-                sideElement.classList.remove('mobile-active');
-                const descElement = sideElement.querySelector('.hero-desc');
-                const titleElement = sideElement.querySelector('h1');
-                if (descElement) {
-                    descElement.textContent = descElement.getAttribute('data-original');
-                    descElement.classList.remove('primed-for-click');
-                }
-                if (titleElement) {
-                    titleElement.classList.remove('active-title'); 
-                }
-            }
-            if (interactiveClickState[category].timer) {
-                clearTimeout(interactiveClickState[category].timer);
-            }
-            interactiveClickState[category].count = 0;
-            interactiveClickState[category].timer = null;
+        function initializeVideos() {
+            portfolioItems.forEach((item, index) => {
+                if (item.type !== 'video') return;
+                const elementId = `yt-player-${index}`;
+                const div = document.getElementById(elementId);
+                const container = document.getElementById(`container-${elementId}`);
+                
+                if (!div || div.dataset.playerInitialized) return;
+
+                const player = new YT.Player(elementId, {
+                    videoId: div.dataset.embed,
+                    playerVars: {
+                        autoplay: 1,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        iv_load_policy: 3,
+                        loop: 1,
+                        modestbranding: 1,
+                        mute: 1,
+                        playlist: div.dataset.embed,
+                        rel: 0,
+                        showinfo: 0,
+                        start: parseInt(div.dataset.start, 10) || 0
+                    },
+                    events: {
+                        onReady: (e) => {
+                            e.target.mute();
+                            e.target.playVideo();
+                        },
+                        onStateChange: (e) => {
+                            if (e.data === YT.PlayerState.PLAYING && container) {
+                                container.classList.add('video-ready');
+                            }
+                            if (e.data === YT.PlayerState.ENDED) {
+                                e.target.seekTo(parseInt(div.dataset.start, 10) || 0);
+                                e.target.playVideo();
+                            }
+                        }
+                    }
+                });
+
+                div.dataset.playerInitialized = "true";
+                activePlayers.push(player);
+            });
         }
 
         function filterPortfolio(category) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            const targetBtn = document.getElementById(`filter-${category === 'all' ? 'all' : category}`);
-            if (targetBtn) targetBtn.classList.add('active');
+            
+            const activeBtn = document.getElementById(`filter-${category}`);
+            if (activeBtn) activeBtn.classList.add('active');
 
             const items = document.querySelectorAll('.grid-item');
             items.forEach(item => {
-                if (category === 'all' || item.getAttribute('data-category') === category) {
-                    item.style.display = 'block';
-                    setTimeout(() => item.classList.add('visible'), 50);
-                } else {
-                    item.classList.remove('visible');
-                    item.style.display = 'none';
-                }
+                item.classList.remove('visible');
+                setTimeout(() => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.classList.add('visible'), 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }, 300);
             });
         }
 
-        function renderPortfolioGrid() {
-            const container = document.getElementById('portfolio-grid-target');
-            if (!container) return;
-
-            container.innerHTML = portfolioItems.map(item => {
-                const mediaHTML = item.type === 'video' 
-                    ? `<div class="video-container">
-                           <iframe 
-                               src="https://www.youtube.com/embed/${item.embedId}?autoplay=1&mute=1&loop=1&playlist=${item.embedId}&controls=0&rel=0&iv_load_policy=3&modestbranding=1${item.startTime ? `&start=${item.startTime}` : ''}" 
-                               allow="autoplay; encrypted-media" 
-                               allowfullscreen>
-                           </iframe>
-                       </div>`
-                    : `<img src="${item.src}" alt="${item.alt}">`;
-
-                return `
-                    <div class="grid-item" data-category="${item.category}">
-                        ${mediaHTML}
-                        <div class="item-overlay">
-                            <h3>${item.title}</h3>
-                            <span>${item.subtitle}</span>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-
-            setTimeout(() => {
-                document.querySelectorAll('.video-container').forEach(container => {
-                    container.classList.add('video-ready');
-                });
-            }, 1800); 
-        }
-
-        function initMagneticSocials() {
-            if (window.innerWidth > 768) {
-                document.querySelectorAll('.footer-socials a').forEach(btn => {
-                    btn.addEventListener('mousemove', (e) => {
-                        const rect = btn.getBoundingClientRect();
-                        const x = e.clientX - rect.left - rect.width / 2;
-                        const y = e.clientY - rect.top - rect.height / 2;
-                        
-                        btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.2)`;
-                    });
-                    
-                    btn.addEventListener('mouseleave', () => {
-                        btn.style.transform = 'translate(0px, 0px) scale(1)';
-                    });
-                });
+        // ==========================================================================
+        // HERO COMPONENT INTERACTION LOGIC
+        // ==========================================================================
+        function handleHeroHover(side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            if (!sideEl) return;
+            
+            const descEl = sideEl.querySelector('.hero-desc');
+            const headingEl = sideEl.querySelector('h1');
+            
+            if (descEl && headingEl) {
+                descEl.textContent = `Click to view ${side} portfolio`;
+                descEl.classList.add('primed-for-click');
+                headingEl.classList.add('active-title');
             }
         }
 
-        document.addEventListener("DOMContentLoaded", () => {
+        function handleHeroLeave(side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            if (!sideEl) return;
+
+            const descEl = sideEl.querySelector('.hero-desc');
+            const headingEl = sideEl.querySelector('h1');
+
+            if (descEl && headingEl) {
+                descEl.textContent = descEl.getAttribute('data-original');
+                descEl.classList.remove('primed-for-click');
+                headingEl.classList.remove('active-title');
+            }
+            sideEl.classList.remove('mobile-active');
+        }
+
+        function handleHeroClick(event, side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile && sideEl && !sideEl.classList.contains('mobile-active')) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                const otherSide = side === 'ground' ? 'drone' : 'ground';
+                handleHeroLeave(otherSide);
+                
+                sideEl.classList.add('mobile-active');
+                handleHeroHover(side);
+                return;
+            }
+
+            const targetSection = document.getElementById('work-section');
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            filterPortfolio(side);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
             renderPortfolioGrid();
-            initMagneticSocials();
-            filterPortfolio('all'); 
-
-            const gridItems = document.querySelectorAll('.grid-item');
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
-
-            gridItems.forEach(item => imageObserver.observe(item));
-
-            window.addEventListener('scroll', () => {
-                if (window.innerWidth > 768) {
-                    const scrolled = window.scrollY;
-                    const vh = window.innerHeight;
-
-                    const hero = document.getElementById('hero-section');
-                    if (scrolled <= vh) {
-                        hero.style.transform = `scale(${1 - (scrolled / vh) * 0.15})`;
-                        hero.style.opacity = 1 - (scrolled / vh);
-                    } else {
-                        hero.style.transform = `scale(0.85)`;
-                        hero.style.opacity = 0;
-                    }
-                }
-            });
         });
     </script>
 </body>
