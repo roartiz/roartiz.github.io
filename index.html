@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOARTIZ MEDIA | Option 1: Ghost Cards</title>
+    <title>SOARTIZ MEDIA | Option 3: Mini Pill Buttons</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
@@ -134,7 +134,7 @@
         }
 
         /* ==========================================================================
-           4. SPLIT HERO COMPONENT (OPTION 1: GHOST CARDS)
+           4. SPLIT HERO COMPONENT (OPTION 3: MINIMALIST PILLS)
            ========================================================================== */
         #hero-section {
             display: flex;
@@ -168,15 +168,15 @@
         }
 
         .side-ground .image-layer {
-            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.5)), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.4)), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .side-drone .image-layer {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.45) 60%, rgba(0, 0, 0, 0.65) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.4) 60%, rgba(0, 0, 0, 0.5) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
         .hero-side:hover {
-            flex: 1.1; /* Minimal expansion to maximize stable image visibility */
+            flex: 1.1; /* Keeps spatial layout distortion minimal */
         }
 
         .hero-side:hover .image-layer {
@@ -190,34 +190,28 @@
             transition: var(--transition);
             pointer-events: none;
             
-            /* Glassmorphic target constraints */
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 30px 40px;
-            border-radius: 12px;
-            max-width: 280px;
-            width: 90%;
+            /* Sleek high-contrast inline pill mechanics */
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: #ffffff;
+            color: #000000;
+            padding: 12px 28px;
+            border-radius: 50px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
 
         .hero-content i {
-            font-size: 2.2rem;
-            margin-bottom: 12px;
-            color: var(--accent-color);
-            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.5));
+            font-size: 1.2rem;
+            margin-bottom: 0; /* Inline behavior align */
+            color: #000000;
         }
 
         .hero-content h1 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            letter-spacing: 2px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
-        }
-
-        .hero-content p {
-            font-size: 0.85rem;
-            opacity: 0.7;
-            margin-top: 8px;
         }
 
         /* ==========================================================================
@@ -506,9 +500,7 @@
                 height: calc(100vh - 135px); 
             }
             .hero-side { padding: 40px 20px; flex: 1 !important; border-right: none !important; }
-            .hero-content { max-width: 100%; }
-            .hero-content h1 { font-size: 1.5rem; }
-            .hero-content i { font-size: 1.8rem; margin-bottom: 8px; }
+            .hero-content { justify-content: center; width: auto; max-width: 180px; margin: 0 auto; }
 
             #work-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
@@ -547,7 +539,6 @@
             <div class="hero-content">
                 <i class="fa-solid fa-camera"></i>
                 <h1>Ground</h1>
-                <p>Down-to-earth perspective and intimate details</p>
             </div>
         </div>
         <div class="hero-side side-drone" onclick="filterPortfolio('drone')">
@@ -555,7 +546,6 @@
             <div class="hero-content">
                 <i class="fa-solid fa-helicopter"></i>
                 <h1>Aerial</h1>
-                <p>Soaring dynamics and the big picture</p>
             </div>
         </div>
     </section>
