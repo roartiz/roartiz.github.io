@@ -15,6 +15,7 @@
             --bg-color: #0a0a0a;
             --text-color: #ffffff;
             --accent-color: #3498db;
+            --accent-compliment: #db7734; /* Complimentary warm accent tone */
             --card-bg: #141414;
             --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             --zoom-transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
@@ -229,7 +230,8 @@
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
             animation: slideUpReveal 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             transition: font-weight 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-                        letter-spacing 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+                        letter-spacing 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+                        color 0.4s ease;
         }
 
         @keyframes slideUpReveal {
@@ -243,9 +245,18 @@
             }
         }
 
+        /* Desktop Title Hover State Styles */
         .hero-side:hover .hero-content h1 {
             font-weight: 700;
             letter-spacing: 6px;
+            color: var(--accent-compliment);
+        }
+
+        /* Mobile Title Active State Styles */
+        .hero-content h1.active-title {
+            font-weight: 700;
+            letter-spacing: 6px;
+            color: var(--accent-compliment);
         }
 
         .hero-content h1::after {
@@ -261,8 +272,11 @@
             box-shadow: 0 2px 8px rgba(52, 152, 219, 0.5);
         }
 
-        .hero-side:hover .hero-content h1::after {
+        .hero-side:hover .hero-content h1::after,
+        .hero-content h1.active-title::after {
             width: 90px;
+            background-color: var(--accent-compliment);
+            box-shadow: 0 2px 8px rgba(219, 119, 52, 0.5);
         }
 
         .hero-content p {
@@ -939,6 +953,7 @@
             // Mobile Action fallback sequence (Double tap mechanism)
             const currentSide = event.currentTarget;
             const descElement = currentSide.querySelector('.hero-desc');
+            const titleElement = currentSide.querySelector('h1');
             
             interactiveClickState[category].count++;
 
@@ -948,6 +963,7 @@
 
                 descElement.textContent = "Tap here to see work";
                 descElement.classList.add('primed-for-click');
+                titleElement.classList.add('active-title'); // Apply complementary color on mobile tap
 
                 interactiveClickState[category].timer = setTimeout(() => {
                     resetClickState(category);
@@ -968,9 +984,13 @@
             const sideElement = document.querySelector(`.side-${category}`);
             if (sideElement) {
                 const descElement = sideElement.querySelector('.hero-desc');
+                const titleElement = sideElement.querySelector('h1');
                 if (descElement) {
                     descElement.textContent = descElement.getAttribute('data-original');
                     descElement.classList.remove('primed-for-click');
+                }
+                if (titleElement) {
+                    titleElement.classList.remove('active-title'); // Clear mobile color modification
                 }
             }
             if (interactiveClickState[category].timer) {
