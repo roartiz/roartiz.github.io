@@ -8,6 +8,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        /* ==========================================================================
+           1. DESIGN SYSTEM & CORE GLOBAL STYLES
+           ========================================================================== */
         :root {
             --bg-color: #0a0a0a;
             --text-color: #ffffff;
@@ -23,19 +26,37 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #000; /* True black background for stacking layers */
+            background-color: #000;
             color: var(--text-color);
             overflow-x: hidden;
             line-height: 1.6;
         }
 
-        html {
-            scroll-behavior: smooth;
+        /* ==========================================================================
+           2. LAYOUT ENGINE (STICKY SCROLL STACKING)
+           ========================================================================== */
+        .stack-section {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background-color: var(--bg-color);
+            transform-origin: center center;
+            transition: transform 0.1s linear, opacity 0.1s linear;
+            overflow: hidden;
         }
 
-        /* Navigation */
+        /* ==========================================================================
+           3. SITE NAVIGATION LAYER
+           ========================================================================== */
         nav {
             position: fixed;
             top: 0;
@@ -69,7 +90,7 @@
             letter-spacing: 3.5px;
             text-transform: uppercase;
             margin-top: 6px;
-            color: var(--accent-color); /* Highlighted branding tagline */
+            color: var(--accent-color);
         }
 
         .nav-links {
@@ -87,11 +108,10 @@
             text-transform: uppercase;
             position: relative;
             padding: 4px 0;
-            opacity: 0.85; /* Sharp contrast enhancement */
+            opacity: 0.85;
             transition: var(--transition);
         }
 
-        /* Animated underline effect for interactive pop */
         .nav-links a::after {
             content: '';
             position: absolute;
@@ -113,21 +133,9 @@
             width: 100%;
         }
 
-        /* --- STICKY STACKING MECHANICS --- */
-        .stack-section {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background-color: var(--bg-color);
-            transform-origin: center center;
-            transition: transform 0.1s linear, opacity 0.1s linear;
-            overflow: hidden;
-        }
-
-        /* Hero Section (Split Screen) */
+        /* ==========================================================================
+           4. SPLIT HERO COMPONENT
+           ========================================================================== */
         #hero-section {
             display: flex;
             flex-direction: row;
@@ -145,12 +153,10 @@
             overflow: hidden;
         }
 
-        /* Clean CSS Editorial Separation Line */
         .hero-side.side-ground {
             border-right: 1px solid rgba(255, 255, 255, 0.12);
         }
 
-        /* Image layers isolation for Ken Burns & Color wake-up */
         .image-layer {
             position: absolute;
             inset: 0;
@@ -166,15 +172,9 @@
         }
 
         .side-drone .image-layer {
-            background-image: linear-gradient(
-                to bottom, 
-                rgba(0, 0, 0, 0.3) 0%, 
-                rgba(0, 0, 0, 0.55) 60%, 
-                rgba(0, 0, 0, 0.75) 100%
-            ), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
         }
 
-        /* Interactive Dynamic Stretches & Zoom Animations */
         .hero-side:hover {
             flex: 1.3;
         }
@@ -188,7 +188,7 @@
             text-align: center;
             z-index: 2;
             transition: var(--transition);
-            pointer-events: none; /* Prevents text elements breaking mouse hover areas */
+            pointer-events: none;
         }
 
         .hero-content i {
@@ -203,17 +203,19 @@
             font-weight: 600;
             letter-spacing: 3px;
             text-transform: uppercase;
-            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6); /* Safety text protection layer */
+            text-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
         }
 
         .hero-content p {
             font-size: 1rem;
-            opacity: 0.8; /* Slightly raised for reading clarity */
+            opacity: 0.8;
             margin-top: 10px;
             text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
         }
 
-        /* Portfolio Section */
+        /* ==========================================================================
+           5. PORTFOLIO WORK INTERACTION GRID
+           ========================================================================== */
         #work-section {
             z-index: 2;
             height: auto;
@@ -232,7 +234,6 @@
             letter-spacing: 2px;
         }
 
-        /* Filter Tabs */
         .filters {
             display: flex;
             justify-content: center;
@@ -258,7 +259,6 @@
             border-color: var(--text-color);
         }
 
-        /* Dynamic Grid */
         .portfolio-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -273,8 +273,8 @@
             border-radius: 8px;
             overflow: hidden;
             position: relative;
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 0; /* Managed beautifully by interaction observer API loading */
+            transform: translateY(20px);
             transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
@@ -283,7 +283,6 @@
             transform: translateY(0);
         }
 
-        /* Image Sizing Control */
         .grid-item img {
             width: 100%;
             height: 250px;
@@ -296,12 +295,10 @@
             transform: scale(1.05);
         }
 
-        /* Seamless Video Containers */
         .video-container {
             position: relative;
             width: 100%;
             height: 250px;
-            /* Matches card background so initial iframe buffering doesn't cause a harsh black flash */
             background-color: var(--card-bg); 
             overflow: hidden;
         }
@@ -311,7 +308,6 @@
             height: 100%;
             border: none;
             object-fit: cover;
-            /* pointer-events: none stops hover tracking disruptions inside iframes */
             pointer-events: none; 
         }
 
@@ -325,7 +321,7 @@
             padding: 30px;
             opacity: 0;
             transition: var(--transition);
-            z-index: 3; /* Keeps title layout floating safely on top of iframes */
+            z-index: 3;
             pointer-events: none;
         }
 
@@ -346,7 +342,9 @@
             margin-top: 5px;
         }
 
-        /* --- TESTIMONIALS SECTION --- */
+        /* ==========================================================================
+           6. CLIENT TESTIMONIALS SLIDER BACKDROP
+           ========================================================================== */
         #testimonials-section {
             z-index: 3;
             background-color: #080808;
@@ -396,7 +394,9 @@
             color: var(--accent-color);
         }
 
-        /* Enhanced Footer & Contact Layout */
+        /* ==========================================================================
+           7. SYSTEM FOOTER & EMBEDDED CONTACT CONTACTS
+           ========================================================================== */
         #contact-section {
             z-index: 4;
             background-color: #050505;
@@ -476,7 +476,9 @@
             color: var(--accent-color);
         }
 
-        /* --- MOBILE RESPONSIVE UI UPGRADES --- */
+        /* ==========================================================================
+           8. CLEAN RESPONSIVE MEDIA QUERIES BREAKPOINTS
+           ========================================================================== */
         @media(max-width: 768px) {
             nav { 
                 padding: 20px; 
@@ -559,81 +561,7 @@
             <button class="filter-btn" id="filter-drone" onclick="filterPortfolio('drone')">Aerial</button>
         </div>
 
-        <div class="portfolio-grid">
-            <div class="grid-item" data-category="ground">
-                <img src="assets/images/confTable.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Conference room with large artisan table">
-                <div class="item-overlay">
-                    <h3>Commercial Interiors</h3>
-                    <span>Real Estate</span>
-                </div>
-            </div>
-
-            <div class="grid-item" data-category="drone">
-                <div class="video-container">
-                    <iframe 
-                        src="https://www.youtube.com/embed/SG25dLuapzc?autoplay=1&mute=1&loop=1&playlist=SG25dLuapzc&controls=0&rel=0&showinfo=0&iv_load_policy=3&modestbranding=1&start=15" 
-                        allow="autoplay; encrypted-media" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="item-overlay">
-                    <h3>Wedding Highlights</h3>
-                    <span>Events</span>
-                </div>
-            </div>
-
-            <div class="grid-item" data-category="drone">
-                <img src="assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="New housing development under construction">
-                <div class="item-overlay">
-                    <h3>Residential Site Progress</h3>
-                    <span>Construction</span>
-                </div>
-            </div>            
-
-            <div class="grid-item" data-category="drone">
-                <div class="video-container">
-                    <iframe 
-                        src="https://www.youtube.com/embed/JG9Ewqpa6SE?autoplay=1&mute=1&loop=1&playlist=JG9Ewqpa6SE&controls=0&rel=0&showinfo=0&iv_load_policy=3&modestbranding=1&start=10" 
-                        allow="autoplay; encrypted-media" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="item-overlay">
-                    <h3>Tour of Homes</h3>
-                    <span>Events</span>
-                </div>
-            </div>
-
-            <div class="grid-item" data-category="drone">
-                <img src="assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Apartment complex leasing office">
-                <div class="item-overlay">
-                    <h3>Residential Interiors</h3>
-                    <span>Real Estate</span>
-                </div>
-            </div>
-
-            <div class="grid-item" data-category="drone">
-                <div class="video-container">
-                    <iframe 
-                        src="https://www.youtube.com/embed/D6MdGFrOEII?autoplay=1&mute=1&loop=1&playlist=D6MdGFrOEII&controls=0&rel=0&showinfo=0&iv_load_policy=3&modestbranding=1&start=9" 
-                        allow="autoplay; encrypted-media" 
-                        allowfullscreen>
-                    </iframe>
-                </div>
-                <div class="item-overlay">
-                    <h3>Foundation Progress</h3>
-                    <span>Construction</span>
-                </div>
-            </div>
-
-            <div class="grid-item" data-category="ground">
-                <img src="assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80" alt="Huey Magoo's restaurant">
-                <div class="item-overlay">
-                    <h3>Foodservice</h3>
-                    <span>Real Estate</span>
-                </div>
-            </div>
-        </div>
+        <div class="portfolio-grid" id="portfolio-grid-target"></div>
     </section>
 
     <section id="testimonials-section" class="stack-section">
@@ -673,9 +601,106 @@
     </section>
 
     <script>
+        /* ==========================================================================
+           DATA LAYER: Add, remove, or change items easily in this array
+           ========================================================================== */
+        const portfolioItems = [
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/confTable.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Conference room with large artisan table',
+                title: 'Commercial Interiors',
+                subtitle: 'Real Estate'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'JG9Ewqpa6SE',
+                startTime: 15,
+                title: 'Tour of Homes',
+                subtitle: 'Events'
+            },
+            {
+                type: 'image',
+                category: 'drone',
+                src: 'assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'New housing development under construction',
+                title: 'Residential Site Progress',
+                subtitle: 'Construction'
+            },
+            {
+                type: 'image',
+                category: 'drone',
+                src: 'assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Apartment complex leasing office',
+                title: 'Residential Interiors',
+                subtitle: 'Real Estate'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'JG9Ewqpa6SE',
+                startTime: 0,
+                title: 'Tour of Homes',
+                subtitle: 'Events'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'D6MdGFrOEII',
+                startTime: 9,
+                title: 'Foundation Progress',
+                subtitle: 'Construction'
+            },
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: "Huey Magoo's restaurant",
+                title: 'Foodservice',
+                subtitle: 'Real Estate'
+            }
+        ];
+
+        /* ==========================================================================
+           ENGINE RENDERING CORE MECHANICS
+           ========================================================================== */
+        function renderPortfolioGrid() {
+            const container = document.getElementById('portfolio-grid-target');
+            if (!container) return;
+
+            container.innerHTML = portfolioItems.map(item => {
+                // Generate asset inner wrapper depending on media data type structure
+                const mediaHTML = item.type === 'video' 
+                    ? `<div class="video-container">
+                           <iframe 
+                               src="https://www.youtube.com/embed/${item.embedId}?autoplay=1&mute=1&loop=1&playlist=${item.embedId}&controls=0&rel=0&showinfo=0&iv_load_policy=3&modestbranding=1${item.startTime ? `&start=${item.startTime}` : ''}" 
+                               allow="autoplay; encrypted-media" 
+                               allowfullscreen>
+                           </iframe>
+                       </div>`
+                    : `<img src="${item.src}" alt="${item.alt}">`;
+
+                return `
+                    <div class="grid-item" data-category="${item.category}">
+                        ${mediaHTML}
+                        <div class="item-overlay">
+                            <h3>${item.title}</h3>
+                            <span>${item.subtitle}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Initialize script events
         document.addEventListener("DOMContentLoaded", () => {
+            // 1. Programmatically assemble grid items from arrays
+            renderPortfolioGrid();
+
+            // 2. Set up element triggers and observer arrays
             const gridItems = document.querySelectorAll('.grid-item');
-            
             const imageObserver = new IntersectionObserver((entries, observer) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -687,6 +712,7 @@
 
             gridItems.forEach(item => imageObserver.observe(item));
 
+            // 3. Keep layout transform calculations for desktop users
             window.addEventListener('scroll', () => {
                 if (window.innerWidth > 768) {
                     const scrolled = window.scrollY;
@@ -694,59 +720,44 @@
 
                     const hero = document.getElementById('hero-section');
                     if (scrolled <= vh) {
-                        const scale = 1 - (scrolled / vh) * 0.15;
-                        const opacity = 1 - (scrolled / vh);
-                        hero.style.transform = `scale(${scale})`;
-                        hero.style.opacity = opacity;
+                        hero.style.transform = `scale(${1 - (scrolled / vh) * 0.15})`;
+                        hero.style.opacity = 1 - (scrolled / vh);
                     } else {
                         hero.style.transform = `scale(0.85)`;
                         hero.style.opacity = 0;
                     }
 
-                    const work = document.getElementById('work-section');
-                    const workTop = work.offsetTop;
-                    if (scrolled >= workTop) {
-                        const relativeScroll = scrolled - workTop;
-                        const scale = 1 - (relativeScroll / vh) * 0.15;
-                        const opacity = 1 - (relativeScroll / vh);
-                        if(opacity >= 0) {
-                            work.style.transform = `scale(${scale})`;
-                            work.style.opacity = opacity;
+                    ['work-section', 'testimonials-section'].forEach(id => {
+                        const section = document.getElementById(id);
+                        if (!section) return;
+                        const top = section.offsetTop;
+                        if (scrolled >= top) {
+                            const factor = 1 - ((scrolled - top) / vh) * 0.15;
+                            const op = 1 - ((scrolled - top) / vh);
+                            if (op >= 0) {
+                                section.style.transform = `scale(${factor})`;
+                                section.style.opacity = op;
+                            }
+                        } else {
+                            section.style.transform = `scale(1)`;
+                            section.style.opacity = 1;
                         }
-                    } else {
-                        work.style.transform = `scale(1)`;
-                        work.style.opacity = 1;
-                    }
-
-                    const testimonials = document.getElementById('testimonials-section');
-                    const testimonialsTop = testimonials.offsetTop;
-                    if (scrolled >= testimonialsTop) {
-                        const relativeScroll = scrolled - testimonialsTop;
-                        const scale = 1 - (relativeScroll / vh) * 0.15;
-                        const opacity = 1 - (relativeScroll / vh);
-                        if(opacity >= 0) {
-                            testimonials.style.transform = `scale(${scale})`;
-                            testimonials.style.opacity = opacity;
-                        }
-                    } else {
-                        testimonials.style.transform = `scale(1)`;
-                        testimonials.style.opacity = 1;
-                    }
+                    });
                 }
             });
         });
 
+        /* ==========================================================================
+           CONTROLLER FUNCTIONS
+           ========================================================================== */
         function filterPortfolio(category) {
             document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
 
-            const tabs = document.querySelectorAll('.filter-btn');
-            tabs.forEach(tab => tab.classList.remove('active'));
-            
-            const targetedButton = document.getElementById(`filter-${category}`);
-            if(targetedButton) targetedButton.classList.add('active');
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            const targetBtn = document.getElementById(`filter-${category}`);
+            if (targetBtn) targetBtn.classList.add('active');
 
-            const items = document.querySelectorAll('.grid-item');
-            items.forEach(item => {
+            document.querySelectorAll('.grid-item').forEach(item => {
                 const itemCategory = item.getAttribute('data-category');
                 if (category === 'all' || category === itemCategory) {
                     item.style.display = 'block';
