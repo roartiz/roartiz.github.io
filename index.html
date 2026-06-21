@@ -178,7 +178,6 @@
             z-index: 1;
         }
 
-        /* Increased black floor on core imagery mask gradients */
         .side-ground .image-layer {
             background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
         }
@@ -191,7 +190,6 @@
             flex: 1.1;
         }
 
-        /* Drop opacity slightly on hover to amplify readability pockets */
         .hero-side:hover .image-layer {
             transform: scale(1.04);
             filter: grayscale(0%) contrast(100%);
@@ -230,6 +228,7 @@
         .hero-content h1 {
             font-size: 2.2rem;
             font-weight: 300;
+            color: #ffffff;
             letter-spacing: 3px;
             text-transform: uppercase;
             text-shadow: var(--text-shadow-heavy);
@@ -240,7 +239,6 @@
             animation: slideUpReveal 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
             transition: font-weight 0.6s cubic-bezier(0.25, 1, 0.5, 1),
                         letter-spacing 0.6s cubic-bezier(0.25, 1, 0.5, 1),
-                        color 0.4s ease,
                         text-shadow 0.4s ease;
         }
 
@@ -255,20 +253,18 @@
             }
         }
 
-        /* Desktop Title Hover State Styles */
+        /* Desktop Title Hover State Styles (Kept text color clean white) */
         .hero-side:hover .hero-content h1 {
             font-weight: 700;
             letter-spacing: 6px;
-            color: var(--accent-compliment);
-            text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95), 0 0 10px rgba(219, 119, 52, 0.2);
+            text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95);
         }
 
-        /* Mobile Title Active State Styles */
+        /* Mobile Title Active State Styles (Kept text color clean white) */
         .hero-content h1.active-title {
             font-weight: 700;
             letter-spacing: 6px;
-            color: var(--accent-compliment);
-            text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95), 0 0 10px rgba(219, 119, 52, 0.2);
+            text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95);
         }
 
         .hero-content h1::after {
@@ -954,7 +950,6 @@
 
         // Unified Execution Route Selector
         function handleHeroClick(event, category) {
-            // Desktop Action: Instantly execute routing filter on single click
             if (window.innerWidth > 768) {
                 filterPortfolio(category);
                 const workSection = document.getElementById('work-section');
@@ -964,7 +959,6 @@
                 return;
             }
 
-            // Mobile Action fallback sequence (Double tap mechanism)
             const currentSide = event.currentTarget;
             const descElement = currentSide.querySelector('.hero-desc');
             const titleElement = currentSide.querySelector('h1');
@@ -975,7 +969,7 @@
                 const alternateCategory = category === 'ground' ? 'drone' : 'ground';
                 resetClickState(alternateCategory);
 
-                currentSide.classList.add('mobile-active'); // Darken overlay container
+                currentSide.classList.add('mobile-active'); 
                 descElement.textContent = "Tap here to see work";
                 descElement.classList.add('primed-for-click');
                 titleElement.classList.add('active-title'); 
