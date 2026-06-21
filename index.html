@@ -138,7 +138,7 @@
            ========================================================================== */
         #hero-section {
             display: flex;
-            flex-direction: column; /* Changed to hold both the band and the split container */
+            flex-direction: column;
             justify-content: flex-start;
             z-index: 1;
         }
@@ -274,8 +274,8 @@
             text-shadow: 0 3px 10px rgba(0,0,0,0.9);
         }
 
-        /* Highlight prompt modification styling on double tap */
-        .hero-desc.primed-for-tap {
+        /* Dynamic selection visual hint state styles */
+        .hero-desc.primed-for-click {
             color: var(--accent-color);
             font-weight: 600;
             opacity: 1;
@@ -283,7 +283,7 @@
         }
 
         @keyframes pulseText {
-            0%, 100% { opacity: 0.7; }
+            0%, 100 { opacity: 0.7; }
             50% { opacity: 1; }
         }
 
@@ -624,7 +624,7 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
             padding: 35px 50px;
-            margin-top: 90px; /* Accounts for fixed nav window framing */
+            margin-top: 90px; 
             z-index: 5;
             position: relative;
             width: 100%;
@@ -677,11 +677,11 @@
         @media(max-width: 768px) {
             .services-band {
                 padding: 20px;
-                margin-top: 0; /* Handled by parent wrapper layout on mobile */
+                margin-top: 0; 
             }
             .services-wrap {
                 display: grid;
-                grid-template-columns: repeat(2, 1fr); /* Arranges items side-by-side in rows of 2 */
+                grid-template-columns: repeat(2, 1fr); 
                 gap: 15px 25px;
                 max-width: 320px;
                 margin: 0 auto;
@@ -691,7 +691,7 @@
                 align-items: center;
                 justify-content: flex-start;
                 padding: 8px 0;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Clean border lines for rows */
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05); 
             }
         }
     </style>
@@ -733,7 +733,8 @@
         </div>
 
         <div class="hero-split-container">
-            <div class="hero-side side-ground" onclick="handleHeroTap(event, 'ground')">
+            <!-- Intercepted inline click listeners to utilize unified browser logic -->
+            <div class="hero-side side-ground" onclick="handleHeroClick(event, 'ground')">
                 <div class="image-layer"></div>
                 <div class="hero-content">
                     <i class="fa-solid fa-camera"></i>
@@ -741,7 +742,7 @@
                     <p><span class="hero-desc" data-original="down-to-earth perspective | intimate details">down-to-earth perspective | intimate details</span></p>
                 </div>
             </div>
-            <div class="hero-side side-drone" onclick="handleHeroTap(event, 'drone')">
+            <div class="hero-side side-drone" onclick="handleHeroClick(event, 'drone')">
                 <div class="image-layer"></div>
                 <div class="hero-content">
                     <i class="fa-solid fa-helicopter"></i>
@@ -868,44 +869,37 @@
             },
         ];
 
-        // Track tap count per category for responsive mobile UX
-        let mobileTapState = {
+        // Track click/tap counts platform-wide
+        let interactiveClickState = {
             ground: { count: 0, timer: null },
             drone: { count: 0, timer: null }
         };
 
-        function handleHeroTap(event, category) {
-            // Deskops bypass this completely and execute standard logic
-            if (window.innerWidth > 768) {
-                filterPortfolio(category);
-                return;
-            }
-
+        function handleHeroClick(event, category) {
             const currentSide = event.currentTarget;
             const descElement = currentSide.querySelector('.hero-desc');
             
-            mobileTapState[category].count++;
+            interactiveClickState[category].count++;
 
-            if (mobileTapState[category].count === 1) {
-                // Clear state on the opposite side to avoid mixed states
+            if (interactiveClickState[category].count === 1) {
+                // Instantly clear the other side to avoid double active parameters
                 const alternateCategory = category === 'ground' ? 'drone' : 'ground';
-                resetMobileTap(alternateCategory);
+                resetClickState(alternateCategory);
 
-                // Prime current selected card
-                descElement.textContent = "Tap again to see examples";
-                descElement.classList.add('primed-for-tap');
+                // Prompt user engagement behavior
+                descElement.textContent = "Click again to see examples";
+                descElement.classList.add('primed-for-click');
 
-                // Auto reset back to original state if user walks away or hesitates
-                mobileTapState[category].timer = setTimeout(() => {
-                    resetMobileTap(category);
+                // Fallback reset window (4 seconds)
+                interactiveClickState[category].timer = setTimeout(() => {
+                    resetClickState(category);
                 }, 4000);
 
-            } else if (mobileTapState[category].count >= 2) {
-                // Execute standard view filter
+            } else if (interactiveClickState[category].count >= 2) {
+                // Execute layout rendering and routing
                 filterPortfolio(category);
-                resetMobileTap(category);
+                resetClickState(category);
 
-                // Smooth jump down to the target display grid section
                 const workSection = document.getElementById('work-section');
                 if (workSection) {
                     workSection.scrollIntoView({ behavior: 'smooth' });
@@ -913,29 +907,27 @@
             }
         }
 
-        function resetMobileTap(category) {
+        function resetClickState(category) {
             const sideElement = document.querySelector(`.side-${category}`);
             if (sideElement) {
                 const descElement = sideElement.querySelector('.hero-desc');
                 if (descElement) {
                     descElement.textContent = descElement.getAttribute('data-original');
-                    descElement.classList.remove('primed-for-tap');
+                    descElement.classList.remove('primed-for-click');
                 }
             }
-            if (mobileTapState[category].timer) {
-                clearTimeout(mobileTapState[category].timer);
+            if (interactiveClickState[category].timer) {
+                clearTimeout(interactiveClickState[category].timer);
             }
-            mobileTapState[category].count = 0;
-            mobileTapState[category].timer = null;
+            interactiveClickState[category].count = 0;
+            interactiveClickState[category].timer = null;
         }
 
         function filterPortfolio(category) {
-            // Update active state class handles across custom grid buttons
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             const targetBtn = document.getElementById(`filter-${category === 'all' ? 'all' : category}`);
             if (targetBtn) targetBtn.classList.add('active');
 
-            // Toggle item block visibility classes inside node queries
             const items = document.querySelectorAll('.grid-item');
             items.forEach(item => {
                 if (category === 'all' || item.getAttribute('data-category') === category) {
@@ -996,7 +988,7 @@
         document.addEventListener("DOMContentLoaded", () => {
             renderPortfolioGrid();
             initMagneticSocials();
-            filterPortfolio('all'); // Initialize layout engine state defaults
+            filterPortfolio('all'); 
 
             const gridItems = document.querySelectorAll('.grid-item');
             const imageObserver = new IntersectionObserver((entries, observer) => {
