@@ -211,19 +211,15 @@
         /* --- ANIMATION 1 & 2: Editorial Slide Reveal & Morphing Weight --- */
         .hero-content h1 {
             font-size: 2.2rem;
-            font-weight: 300; /* Set a lighter baseline for dynamic range */
+            font-weight: 300;
             letter-spacing: 3px;
             text-transform: uppercase;
             text-shadow: 0 4px 14px rgba(0,0,0,0.8);
             position: relative;
             display: inline-block;
             padding-bottom: 12px;
-            
-            /* Slices out from the frame on load */
             clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
             animation: slideUpReveal 1.4s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-            
-            /* Smooth transitions for weight & character compression adjustments */
             transition: font-weight 0.6s cubic-bezier(0.25, 1, 0.5, 1),
                         letter-spacing 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
@@ -239,7 +235,6 @@
             }
         }
 
-        /* Elevate text architecture on side cluster hover */
         .hero-side:hover .hero-content h1 {
             font-weight: 700;
             letter-spacing: 6px;
@@ -336,13 +331,11 @@
             transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* --- ANIMATION 3: Laser Trace Border Fit --- */
         .grid-item::before {
             content: '';
             position: absolute;
             inset: 0;
             border: 1px solid var(--accent-color);
-            /* Soft gradient line tracing wrapper */
             border-image: linear-gradient(to right, var(--accent-color), rgba(52, 152, 219, 0.1)) 1;
             opacity: 0;
             transform: scale(0.97);
@@ -542,9 +535,8 @@
             text-transform: uppercase;
         }
 
-        /* --- ANIMATION 4 Preparation --- */
         .footer-socials a {
-            display: inline-block; /* Crucial positioning layer for JS translate transforms */
+            display: inline-block;
             color: var(--text-color);
             font-size: 1.2rem;
             margin-left: 20px;
@@ -599,6 +591,75 @@
             .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
             .footer-socials a { margin: 0 10px; }
         }
+
+        /* ==========================================================================
+           9. MINI SERVICES QUICK-BAND
+           ========================================================================== */
+        .services-band {
+            background-color: #0d0d0d;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            padding: 35px 50px;
+            z-index: 5;
+            position: relative;
+        }
+
+        .services-wrap {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .service-inline-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: var(--transition);
+        }
+
+        .service-inline-item i {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+
+        .service-inline-item span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-color);
+            opacity: 0.6;
+            transition: var(--transition);
+        }
+
+        .service-inline-item:hover i {
+            opacity: 1;
+            transform: scale(1.15);
+        }
+
+        .service-inline-item:hover span {
+            opacity: 1;
+            color: var(--text-color);
+            letter-spacing: 2.5px;
+        }
+
+        @media(max-width: 768px) {
+            .services-band {
+                padding: 40px 20px;
+            }
+            .services-wrap {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 20px;
+                max-width: 250px;
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
 <body>
@@ -633,6 +694,27 @@
             </div>
         </div>
     </section>
+
+    <div class="services-band">
+        <div class="services-wrap">
+            <div class="service-inline-item">
+                <i class="fa-solid fa-house-chimney"></i>
+                <span>Real Estate</span>
+            </div>
+            <div class="service-inline-item">
+                <i class="fa-solid fa-helmet-safety"></i>
+                <span>Construction</span>
+            </div>
+            <div class="service-inline-item">
+                <i class="fa-solid fa-champagne-glasses"></i>
+                <span>Events</span>
+            </div>
+            <div class="service-inline-item">
+                <i class="fa-solid fa-building"></i>
+                <span>Commercial</span>
+            </div>
+        </div>
+    </div>
 
     <section id="work-section" class="stack-section">
         <h2 class="section-title">Selected Works</h2>
@@ -777,9 +859,7 @@
             }).join('');
         }
 
-        // --- ANIMATION 4: Micro-Magnetic Pull Algorithm ---
         function initMagneticSocials() {
-            // Only execute interaction mapping on devices with desktop tracking capabilities
             if (window.innerWidth > 768) {
                 document.querySelectorAll('.footer-socials a').forEach(btn => {
                     btn.addEventListener('mousemove', (e) => {
@@ -787,12 +867,10 @@
                         const x = e.clientX - rect.left - rect.width / 2;
                         const y = e.clientY - rect.top - rect.height / 2;
                         
-                        // Scale slightly while pulling the anchor toward the precise cursor position
                         btn.style.transform = `translate(${x * 0.3}px, ${y * 0.3}px) scale(1.2)`;
                     });
                     
                     btn.addEventListener('mouseleave', () => {
-                        // Return cleanly to position structural layout bounds
                         btn.style.transform = 'translate(0px, 0px) scale(1)';
                     });
                 });
