@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOARTIZ MEDIA | Photo & Video | Camera + Drone</title>
-    <link href="https://fonts.googleapis.com/css2=family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -179,11 +179,11 @@
         }
 
         .side-ground .image-layer {
-            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%), url('/assets/images/z63.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.75) 100%), url('https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80');
         }
 
         .side-drone .image-layer {
-            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.75) 100%), url('/assets/images/droneFleet.jpg?auto=format&fit=crop&w=1200&q=80');
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 60%, rgba(0, 0, 0, 0.75) 100%), url('https://images.unsplash.com/photo-1508614589041-895b88991e3e?auto=format&fit=crop&w=1200&q=80');
         }
 
         .hero-side:hover {
@@ -214,7 +214,6 @@
             align-items: center;
         }
 
-        /* Dedicated Layout Grouping for Icon on its own line above text */
         .hero-title-group {
             display: flex;
             flex-direction: column;
@@ -264,14 +263,12 @@
             }
         }
 
-        /* Desktop Title Hover State Styles */
         .hero-side:hover .hero-content h1 {
             font-weight: 700;
             letter-spacing: 6px;
             text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95);
         }
 
-        /* Mobile Title Active State Styles */
         .hero-content h1.active-title {
             font-weight: 700;
             letter-spacing: 6px;
@@ -309,14 +306,12 @@
             justify-content: center;
         }
 
-        /* Dynamic selection visual hint styling */
         .hero-desc {
             display: inline-block;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             text-shadow: var(--text-shadow-heavy);
         }
 
-        /* Enhanced prominence layout when action triggered */
         .hero-desc.primed-for-click {
             color: #ffffff;
             font-weight: 700;
@@ -339,7 +334,7 @@
         }
 
         /* ==========================================================================
-           5. PORTFOLIO WORK INTERACTION GRID & VEIL ENHANCEMENTS
+           5. PORTFOLIO WORK INTERACTION GRID
            ========================================================================== */
         #work-section {
             z-index: 2;
@@ -366,7 +361,6 @@
             margin-bottom: 50px;
         }
 
-        /* Portfolio filter layout synchronized with the hero card's pill button style */
         .filter-btn {
             background: rgba(10, 10, 10, 0.85);
             border: 1px solid rgba(52, 152, 219, 0.4);
@@ -425,8 +419,7 @@
             border-image: linear-gradient(to right, var(--accent-color), rgba(52, 152, 219, 0.1)) 1;
             opacity: 0;
             transform: scale(0.97);
-            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), 
-                        opacity 0.4s ease;
+            transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.4s ease;
             z-index: 4;
             pointer-events: none;
         }
@@ -466,7 +459,6 @@
             height: 100%;
             border: none;
             object-fit: cover;
-            pointer-events: none; 
             opacity: 0;
             transition: opacity 0.8s ease-in-out;
         }
@@ -573,7 +565,7 @@
         }
 
         /* ==========================================================================
-           7. SYSTEM FOOTER & EMBEDDED CONTACT CONTACTS
+           7. SYSTEM FOOTER & CONTACTS
            ========================================================================== */
         #contact-section {
             z-index: 4;
@@ -656,61 +648,13 @@
         }
 
         /* ==========================================================================
-           8. CLEAN RESPONSIVE MEDIA QUERIES BREAKPOINTS
-           ========================================================================== */
-        @media(max-width: 768px) {
-            nav { 
-                padding: 20px; 
-                flex-direction: column; 
-                gap: 15px; 
-                text-align: center; 
-                background: rgba(10, 10, 10, 0.95);
-            }
-            .logo-container { align-items: center; }
-            .nav-links a { margin: 0 15px; }
-            .nav-links a::after { display: none; }
-            
-            .stack-section { position: relative; height: auto; min-height: auto; } 
-
-            #hero-section { 
-                flex-direction: column; 
-                margin-top: 135px; 
-                height: auto; 
-            }
-            .hero-split-container {
-                flex-direction: column;
-            }
-            .hero-side { padding: 55px 20px; flex: 1 !important; border-right: none !important; }
-            .hero-content { max-width: 100%; }
-            .hero-content h1 { font-size: 1.8rem; }
-            .hero-content i { font-size: 2rem; margin-bottom: 10px; }
-            .hero-desc.primed-for-click { padding: 8px 18px; font-size: 0.8rem; }
-
-            #work-section { padding: 60px 20px 60px 20px; }
-            .section-title { font-size: 1.8rem; margin-bottom: 25px; }
-            .filters { flex-wrap: wrap; gap: 10px; margin-bottom: 35px; }
-            .filter-btn { padding: 9px 20px; font-size: 0.8rem; width: 100%; max-width: 200px; text-align: center; }
-            
-            .portfolio-grid { grid-template-columns: 1fr; }
-            .grid-item img, .video-container { height: 200px; }
-            
-            #testimonials-section { padding: 80px 20px; }
-            .testimonial-card { padding: 30px 20px; }
-
-            #contact-section { height: auto; padding: 80px 20px 40px 20px; }
-            .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
-            .footer-socials a { margin: 0 10px; }
-        }
-
-        /* ==========================================================================
-           9. MINI SERVICES QUICK-BAND
+           8. MINI SERVICES QUICK-BAND
            ========================================================================== */
         .services-band {
             background-color: #0d0d0d;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            padding: 35px 50px;
-            margin-top: 90px; 
+            padding: 25px 50px;
             z-index: 5;
             position: relative;
             width: 100%;
@@ -760,7 +704,52 @@
             letter-spacing: 2.5px;
         }
 
+        /* ==========================================================================
+           9. CLEAN RESPONSIVE MEDIA QUERIES BREAKPOINTS
+           ========================================================================== */
         @media(max-width: 768px) {
+            nav { 
+                padding: 20px; 
+                flex-direction: column; 
+                gap: 15px; 
+                text-align: center; 
+                background: rgba(10, 10, 10, 0.95);
+            }
+            .logo-container { align-items: center; }
+            .nav-links a { margin: 0 15px; }
+            .nav-links a::after { display: none; }
+            
+            .stack-section { position: relative; height: auto; min-height: auto; } 
+
+            #hero-section { 
+                flex-direction: column; 
+                margin-top: 135px; 
+                height: auto; 
+            }
+            .hero-split-container {
+                flex-direction: column;
+            }
+            .hero-side { padding: 55px 20px; flex: 1 !important; border-right: none !important; }
+            .hero-content { max-width: 100%; }
+            .hero-content h1 { font-size: 1.8rem; }
+            .hero-content i { font-size: 2rem; margin-bottom: 10px; }
+            .hero-desc.primed-for-click { padding: 8px 18px; font-size: 0.8rem; }
+
+            #work-section { padding: 60px 20px 60px 20px; }
+            .section-title { font-size: 1.8rem; margin-bottom: 25px; }
+            .filters { flex-wrap: wrap; gap: 10px; margin-bottom: 35px; }
+            .filter-btn { padding: 9px 20px; font-size: 0.8rem; width: 100%; max-width: 200px; text-align: center; }
+            
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .grid-item img, .video-container { height: 200px; }
+            
+            #testimonials-section { padding: 80px 20px; }
+            .testimonial-card { padding: 30px 20px; }
+
+            #contact-section { height: auto; padding: 80px 20px 40px 20px; }
+            .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
+            .footer-socials a { margin: 0 10px; }
+
             .services-band {
                 padding: 20px;
                 margin-top: 0; 
@@ -797,27 +786,6 @@
     </nav>
 
     <section id="hero-section" class="stack-section">
-        <div class="services-band">
-            <div class="services-wrap">
-                <div class="service-inline-item">
-                    <i class="fa-solid fa-house-chimney"></i>
-                    <span>Real Estate</span>
-                </div>
-                <div class="service-inline-item">
-                    <i class="fa-solid fa-helmet-safety"></i>
-                    <span>Construction</span>
-                </div>
-                <div class="service-inline-item">
-                    <i class="fa-solid fa-champagne-glasses"></i>
-                    <span>Events</span>
-                </div>
-                <div class="service-inline-item">
-                    <i class="fa-solid fa-building"></i>
-                    <span>Commercial</span>
-                </div>
-            </div>
-        </div>
-
         <div class="hero-split-container">
             <div class="hero-side side-ground" 
                  onclick="handleHeroClick(event, 'ground')"
@@ -839,10 +807,31 @@
                 <div class="image-layer"></div>
                 <div class="hero-content">
                     <div class="hero-title-group">
-                        <i class="fa-solid fa-helicopter"></i>
+                        <i class="fa-solid fa-drone"><svg style="width:35px; fill:#fff;" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M111.4 32c-12.3 0-22.9 8.2-26 20.1L69.3 114.6c-13.8 6.4-26.2 15.7-36.4 27.2l-1.5-1.5c-9.4-9.4-24.6-9.4-33.9 0s-9.4 24.6 0 33.9l36.5 36.5c-1.3 7.1-2 14.4-2 21.8c0 15 3.1 29.3 8.7 42.3L15.3 294.3c-11.2 5.3-15.9 18.7-10.6 29.9s18.7 15.9 29.9 10.6l24.3-11.5c18.3 24.5 44.1 42.4 74 50l-2.4 17c-1.9 13.2 7.3 25.4 20.5 27.3s25.4-7.3 27.3-20.5l4-28.1c11.3 2.1 22.9 3.2 34.8 3.2h32c11.9 0 23.6-1.1 34.8-3.2l4 28.1c1.9 13.2 14.1 22.3 27.3 20.5s22.3-14.1 20.5-27.3l-2.4-17c29.9-7.6 55.7-25.5 74-50l24.3 11.5c11.2 5.3 24.6.6 29.9-10.6s-.6-24.6-10.6-29.9l-25.4-12.1c5.6-13 8.7-27.3 8.7-42.3c0-7.4-.7-14.7-2-21.8l36.5-36.5c9.4-9.4 9.4-24.6 0-33.9s-24.6-9.4-33.9 0l-1.5 1.5c-10.2-11.5-22.6-20.8-36.4-27.2L426.6 52.1c-3.1-11.9-13.7-20.1-26-20.1H361.4c-12.8 0-23.7 9-26.2 21.6l-6.1 30.6C306.9 81.1 282 80 256 80s-50.9 1.1-73.1 4.3l-6.1-30.6C174.3 41 163.4 32 150.6 32H111.4zM256 128a128 128 0 1 1 0 256 128 128 0 1 1 0-256zm0 104a24 24 0 1 0 0 48 24 24 0 1 0 0-48z"/></svg></i>
                         <h1>aerial</h1>
                     </div>
                     <p><span class="hero-desc" data-original="soaring dynamics | the big picture">soaring dynamics | the big picture</span></p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="services-band">
+            <div class="services-wrap">
+                <div class="service-inline-item">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <span>Real Estate</span>
+                </div>
+                <div class="service-inline-item">
+                    <i class="fa-solid fa-helmet-safety"></i>
+                    <span>Construction</span>
+                </div>
+                <div class="service-inline-item">
+                    <i class="fa-solid fa-champagne-glasses"></i>
+                    <span>Events</span>
+                </div>
+                <div class="service-inline-item">
+                    <i class="fa-solid fa-building"></i>
+                    <span>Commercial</span>
                 </div>
             </div>
         </div>
@@ -901,11 +890,12 @@
     </section>
 
     <script>
+        // Cleaned array object definitions 
         const portfolioItems = [
             {
                 type: 'image',
                 category: 'ground',
-                src: 'assets/images/confTable.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                src: 'https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&w=600&h=400&q=80',
                 alt: 'Conference room with large artisan table',
                 title: 'Commercial Interiors',
                 subtitle: 'Real Estate'
@@ -929,7 +919,7 @@
             {
                 type: 'image',
                 category: 'drone',
-                src: 'assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                src: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&w=600&h=400&q=80',
                 alt: 'New housing development under construction',
                 title: 'Residential Site Progress',
                 subtitle: 'Construction'
@@ -941,248 +931,77 @@
                 startTime: 9,
                 title: 'Tour of Homes',
                 subtitle: 'Events'
-            },
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'g7zlQGBSuZw',
-                startTime: 0,
-                title: 'Hotel Construction',
-                subtitle: 'Construction'
-            },
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'vstiIbCJT74',
-                startTime: 0,
-                title: 'Protest at the Statehouse',
-                subtitle: 'Event'
-            },
-            {
-                type: 'image',
-                category: 'drone',
-                src: 'assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: 'Apartment complex leasing office',
-                title: 'Residential Interiors',
-                subtitle: 'Real Estate'
-            },            
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'tJHXA-t3aVg',
-                startTime: 0,
-                title: 'Site Timelapse',
-                subtitle: 'Construction'
-            },            
-            {
-                type: 'image',
-                category: 'ground',
-                src: 'assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: "Huey Magoo's restaurant",
-                title: 'Foodservice',
-                subtitle: 'Real Estate'
-            },            
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'D6MdGFrOEII',
-                startTime: 0,
-                title: 'Foundation Progress',
-                subtitle: 'Construction'
-            },        
-            {
-                type: 'image',
-                category: 'ground',
-                src: 'assets/images/dhl.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: 'Large commercial office building',
-                title: 'Commercial Office',
-                subtitle: 'Real Estate'
-            },
+            }
         ];
 
         // ==========================================================================
-        // PORTFOLIO ENGINE & YOUTUBE PLAYER INTEGRATION
+        // ADDED WORK / PORTFOLIO RENDER ENGINE & INTERACTION LOGIC
         // ==========================================================================
-        let ytApiReady = false;
-        const activePlayers = [];
-
-        if (!window.YT) {
-            const tag = document.createElement('script');
-            tag.src = "https://www.youtube.com/iframe_api";
-            const firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-        }
-
-        function onYouTubeIframeAPIReady() {
-            ytApiReady = true;
-            initializeVideos();
-        }
-
-        function renderPortfolioGrid() {
-            const target = document.getElementById('portfolio-grid-target');
-            if (!target) return;
-            target.innerHTML = '';
-
-            portfolioItems.forEach((item, index) => {
-                const card = document.createElement('div');
-                card.className = `grid-item data-item-type-${item.category}`;
-                card.setAttribute('data-category', item.category);
-
+        
+        function renderPortfolio(items) {
+            const gridTarget = document.getElementById('portfolio-grid-target');
+            gridTarget.innerHTML = '';
+            
+            items.forEach(item => {
+                const gridItem = document.createElement('div');
+                gridItem.className = `grid-item visible`;
+                gridItem.setAttribute('data-category', item.category);
+                
                 let mediaHTML = '';
-                if (item.type === 'image') {
-                    mediaHTML = `<img src="${item.src}" alt="${item.alt || ''}" loading="lazy">`;
-                } else if (item.type === 'video') {
-                    const uniqueVideoId = `yt-player-${index}`;
+                if(item.type === 'image') {
+                    mediaHTML = `<img src="${item.src}" alt="${item.alt}">`;
+                } else if(item.type === 'video') {
                     mediaHTML = `
-                        <div class="video-container" id="container-${uniqueVideoId}">
-                            <div id="${uniqueVideoId}" data-embed="${item.embedId}" data-start="${item.startTime || 0}"></div>
-                        </div>
-                    `;
+                        <div class="video-container video-ready">
+                            <iframe src="https://www.youtube.com/embed/${item.embedId}?start=${item.startTime}&autoplay=0&mute=1&playlist=${item.embedId}&loop=1" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                        </div>`;
                 }
-
-                card.innerHTML = `
+                
+                gridItem.innerHTML = `
                     ${mediaHTML}
                     <div class="item-overlay">
                         <h3>${item.title}</h3>
                         <span>${item.subtitle}</span>
                     </div>
                 `;
-                target.appendChild(card);
-            });
-
-            if (ytApiReady) {
-                initializeVideos();
-            }
-
-            setTimeout(() => {
-                document.querySelectorAll('.grid-item').forEach(el => el.classList.add('visible'));
-            }, 50);
-        }
-
-        function initializeVideos() {
-            portfolioItems.forEach((item, index) => {
-                if (item.type !== 'video') return;
-                const elementId = `yt-player-${index}`;
-                const div = document.getElementById(elementId);
-                const container = document.getElementById(`container-${elementId}`);
-                
-                if (!div || div.dataset.playerInitialized) return;
-
-                const player = new YT.Player(elementId, {
-                    videoId: div.dataset.embed,
-                    playerVars: {
-                        autoplay: 1,
-                        controls: 0,
-                        disablekb: 1,
-                        fs: 0,
-                        iv_load_policy: 3,
-                        loop: 1,
-                        modestbranding: 1,
-                        mute: 1,
-                        playlist: div.dataset.embed,
-                        rel: 0,
-                        showinfo: 0,
-                        start: parseInt(div.dataset.start, 10) || 0
-                    },
-                    events: {
-                        onReady: (e) => {
-                            e.target.mute();
-                            e.target.playVideo();
-                        },
-                        onStateChange: (e) => {
-                            if (e.data === YT.PlayerState.PLAYING && container) {
-                                container.classList.add('video-ready');
-                            }
-                            if (e.data === YT.PlayerState.ENDED) {
-                                e.target.seekTo(parseInt(div.dataset.start, 10) || 0);
-                                e.target.playVideo();
-                            }
-                        }
-                    }
-                });
-
-                div.dataset.playerInitialized = "true";
-                activePlayers.push(player);
+                gridTarget.appendChild(gridItem);
             });
         }
 
         function filterPortfolio(category) {
+            // Adjust active class states on buttons
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            
-            const activeBtn = document.getElementById(`filter-${category}`);
-            if (activeBtn) activeBtn.classList.add('active');
-
-            const items = document.querySelectorAll('.grid-item');
-            items.forEach(item => {
-                item.classList.remove('visible');
-                setTimeout(() => {
-                    if (category === 'all' || item.getAttribute('data-category') === category) {
-                        item.style.display = 'block';
-                        setTimeout(() => item.classList.add('visible'), 50);
-                    } else {
-                        item.style.display = 'none';
-                    }
-                }, 300);
-            });
+            if(category === 'all') {
+                document.getElementById('filter-all').classList.add('active');
+                renderPortfolio(portfolioItems);
+            } else {
+                document.getElementById(`filter-${category}`).classList.add('active');
+                const filtered = portfolioItems.filter(i => i.category === category);
+                renderPortfolio(filtered);
+            }
         }
 
-        // ==========================================================================
-        // HERO COMPONENT INTERACTION LOGIC
-        // ==========================================================================
+        // Hero Component Interaction Callbacks
         function handleHeroHover(side) {
             const sideEl = document.querySelector(`.side-${side}`);
-            if (!sideEl) return;
-            
             const descEl = sideEl.querySelector('.hero-desc');
-            const headingEl = sideEl.querySelector('h1');
-            
-            if (descEl && headingEl) {
-                descEl.textContent = `Click to view portfolio`;
-                descEl.classList.add('primed-for-click');
-                headingEl.classList.add('active-title');
-            }
+            descEl.classList.add('primed-for-click');
         }
 
         function handleHeroLeave(side) {
             const sideEl = document.querySelector(`.side-${side}`);
-            if (!sideEl) return;
-
             const descEl = sideEl.querySelector('.hero-desc');
-            const headingEl = sideEl.querySelector('h1');
-
-            if (descEl && headingEl) {
-                descEl.textContent = descEl.getAttribute('data-original');
-                descEl.classList.remove('primed-for-click');
-                headingEl.classList.remove('active-title');
-            }
-            sideEl.classList.remove('mobile-active');
+            descEl.classList.remove('primed-for-click');
         }
 
         function handleHeroClick(event, side) {
-            const sideEl = document.querySelector(`.side-${side}`);
-            const isMobile = window.innerWidth <= 768;
-
-            if (isMobile && sideEl && !sideEl.classList.contains('mobile-active')) {
-                event.preventDefault();
-                event.stopPropagation();
-                
-                const otherSide = side === 'ground' ? 'drone' : 'ground';
-                handleHeroLeave(otherSide);
-                
-                sideEl.classList.add('mobile-active');
-                handleHeroHover(side);
-                return;
-            }
-
-            const targetSection = document.getElementById('work-section');
-            if (targetSection) {
-                targetSection.scrollIntoView({ behavior: 'smooth' });
-            }
             filterPortfolio(side);
+            document.getElementById('work-section').scrollIntoView({ behavior: 'smooth' });
         }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            renderPortfolioGrid();
+        // Initialize display
+        window.addEventListener('DOMContentLoaded', () => {
+            renderPortfolio(portfolioItems);
         });
     </script>
 </body>
