@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOARTIZ MEDIA | Photo & Video | Camera + Drone</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2=family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -20,7 +20,6 @@
             --transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
             --zoom-transition: transform 3s cubic-bezier(0.25, 1, 0.5, 1), filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
             --text-shadow-heavy: 0 4px 18px rgba(0, 0, 0, 0.95), 0 2px 4px rgba(0, 0, 0, 0.85);
-            --gold-accent: #e0dbbd;
         }
 
         * {
@@ -197,6 +196,10 @@
             opacity: 0.85;
         }
 
+        .hero-side.mobile-active .image-layer {
+            opacity: 0.85;
+        }
+
         .hero-content {
             text-align: center;
             z-index: 2;
@@ -211,6 +214,7 @@
             align-items: center;
         }
 
+        /* Dedicated Layout Grouping for Icon on its own line above text */
         .hero-title-group {
             display: flex;
             flex-direction: column;
@@ -260,7 +264,15 @@
             }
         }
 
+        /* Desktop Title Hover State Styles */
         .hero-side:hover .hero-content h1 {
+            font-weight: 700;
+            letter-spacing: 6px;
+            text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95);
+        }
+
+        /* Mobile Title Active State Styles */
+        .hero-content h1.active-title {
             font-weight: 700;
             letter-spacing: 6px;
             text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95);
@@ -279,7 +291,8 @@
             box-shadow: 0 2px 8px rgba(52, 152, 219, 0.6);
         }
 
-        .hero-side:hover .hero-content h1::after {
+        .hero-side:hover .hero-content h1::after,
+        .hero-content h1.active-title::after {
             width: 90px;
             background-color: var(--accent-compliment);
             box-shadow: 0 2px 12px rgba(219, 119, 52, 0.7);
@@ -296,10 +309,33 @@
             justify-content: center;
         }
 
+        /* Dynamic selection visual hint styling */
         .hero-desc {
             display: inline-block;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             text-shadow: var(--text-shadow-heavy);
+        }
+
+        /* Enhanced prominence layout when action triggered */
+        .hero-desc.primed-for-click {
+            color: #ffffff;
+            font-weight: 700;
+            opacity: 1;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(10, 10, 10, 0.85);
+            border: 1px solid rgba(52, 152, 219, 0.6);
+            padding: 10px 24px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(52, 152, 219, 0.2);
+            text-shadow: none;
+            animation: pulseScaleHint 2s infinite ease-in-out;
+        }
+
+        @keyframes pulseScaleHint {
+            0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(52, 152, 219, 0.2); }
+            50% { transform: scale(1.04); border-color: rgba(52, 152, 219, 0.9); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8), 0 0 20px rgba(52, 152, 219, 0.4); }
         }
 
         /* ==========================================================================
@@ -330,6 +366,7 @@
             margin-bottom: 50px;
         }
 
+        /* Portfolio filter layout synchronized with the hero card's pill button style */
         .filter-btn {
             background: rgba(10, 10, 10, 0.85);
             border: 1px solid rgba(52, 152, 219, 0.4);
@@ -484,136 +521,6 @@
         }
 
         /* ==========================================================================
-           5b. TRACK RECORD SECTION INTERIOR DYNAMICS
-           ========================================================================== */
-        #stats-section {
-            z-index: 2;
-            height: auto;
-            min-height: 100vh;
-            background-color: #0c0c0c;
-            padding: 140px 50px 100px 50px;
-        }
-
-        .track-record-container {
-            width: 100%;
-            max-width: 1500px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            width: 100%;
-        }
-
-        .stat-card {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 40px 20px;
-            border-radius: 12px;
-            text-align: center;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .stat-card:hover {
-            border-color: rgba(52, 152, 219, 0.4);
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-3px);
-        }
-
-        .stat-card i {
-            font-size: 1.8rem;
-            color: #3498db;
-            margin-bottom: 20px;
-        }
-
-        .stat-number {
-            font-size: 2.4rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-        }
-
-        .stat-card.birds i {
-            color: #4facfe;
-        }
-
-        .stat-card.birds .stat-number {
-            color: var(--gold-accent); 
-            font-size: 2.1rem;
-        }
-
-        .stat-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 700;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .community-banner {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-left: 4px solid var(--accent-compliment);
-            border-radius: 12px;
-            padding: 30px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            backdrop-filter: blur(10px);
-            transition: var(--transition);
-        }
-
-        .community-banner:hover {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(219, 119, 52, 0.4);
-        }
-
-        .community-left {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .community-left i {
-            font-size: 1.8rem;
-            color: var(--accent-compliment);
-        }
-
-        .community-text h4 {
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            font-weight: 700;
-            margin-bottom: 4px;
-            color: #ffffff;
-        }
-
-        .community-text p {
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.5);
-            font-weight: 400;
-        }
-
-        .community-amount {
-            font-size: 2.4rem;
-            font-weight: 700;
-            color: var(--gold-accent);
-            letter-spacing: -0.5px;
-        }
-
-        /* ==========================================================================
            6. CLIENT TESTIMONIALS SLIDER BACKDROP
            ========================================================================== */
         #testimonials-section {
@@ -751,12 +658,6 @@
         /* ==========================================================================
            8. CLEAN RESPONSIVE MEDIA QUERIES BREAKPOINTS
            ========================================================================== */
-        @media(max-width: 950px) {
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .community-banner { flex-direction: column; text-align: center; gap: 20px; padding: 35px 20px; }
-            .community-left { flex-direction: column; gap: 15px; }
-        }
-
         @media(max-width: 768px) {
             nav { 
                 padding: 20px; 
@@ -783,9 +684,9 @@
             .hero-content { max-width: 100%; }
             .hero-content h1 { font-size: 1.8rem; }
             .hero-content i { font-size: 2rem; margin-bottom: 10px; }
+            .hero-desc.primed-for-click { padding: 8px 18px; font-size: 0.8rem; }
 
             #work-section { padding: 60px 20px 60px 20px; }
-            #stats-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
             .filters { flex-wrap: wrap; gap: 10px; margin-bottom: 35px; }
             .filter-btn { padding: 9px 20px; font-size: 0.8rem; width: 100%; max-width: 200px; text-align: center; }
@@ -799,10 +700,6 @@
             #contact-section { height: auto; padding: 80px 20px 40px 20px; }
             .footer-bottom { flex-direction: column-reverse; gap: 20px; text-align: center; }
             .footer-socials a { margin: 0 10px; }
-        }
-
-        @media(max-width: 480px) {
-            .stats-grid { grid-template-columns: 1fr; }
         }
 
         /* ==========================================================================
@@ -894,7 +791,6 @@
         </div>
         <div class="nav-links">
             <a href="#work-section">Work</a>
-            <a href="#stats-section">Stats</a>
             <a href="#testimonials-section">Reviews</a>
             <a href="#contact-section">Contact</a>
         </div>
@@ -962,52 +858,6 @@
         </div>
 
         <div class="portfolio-grid" id="portfolio-grid-target"></div>
-    </section>
-
-    <!-- TRACK RECORD SECTION -->
-    <section id="stats-section" class="stack-section">
-        <h2 class="section-title">Track Record</h2>
-        
-        <div class="track-record-container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <i class="fa-solid fa-briefcase"></i>
-                    <div class="stat-number">150+</div>
-                    <div class="stat-label">Missions Done</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fa-solid fa-stopwatch"></i>
-                    <div class="stat-number">420</div>
-                    <div class="stat-label">Hours Flown</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fa-solid fa-route"></i>
-                    <div class="stat-number">2,800</div>
-                    <div class="stat-label">Miles Covered</div>
-                </div>
-                <div class="stat-card">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                    <div class="stat-number">45</div>
-                    <div class="stat-label">Towns Served</div>
-                </div>
-                <div class="stat-card birds">
-                    <i class="fa-solid fa-dove"></i>
-                    <div class="stat-number">Countless</div>
-                    <div class="stat-label">Birds Dodged</div>
-                </div>
-            </div>
-
-            <div class="community-banner">
-                <div class="community-left">
-                    <i class="fa-solid fa-hand-holding-heart"></i>
-                    <div class="community-text">
-                        <h4>Community Support</h4>
-                        <p>Proudly investing back into community charities and local non-profits.</p>
-                    </div>
-                </div>
-                <div class="community-amount">$5,000</div>
-            </div>
-        </div>
     </section>
 
     <section id="testimonials-section" class="stack-section">
@@ -1090,75 +940,249 @@
                 embedId: 'JG9Ewqpa6SE',
                 startTime: 9,
                 title: 'Tour of Homes',
+                subtitle: 'Events'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'g7zlQGBSuZw',
+                startTime: 0,
+                title: 'Hotel Construction',
+                subtitle: 'Construction'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'vstiIbCJT74',
+                startTime: 0,
+                title: 'Protest at the Statehouse',
+                subtitle: 'Event'
+            },
+            {
+                type: 'image',
+                category: 'drone',
+                src: 'assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Apartment complex leasing office',
+                title: 'Residential Interiors',
                 subtitle: 'Real Estate'
-            }
+            },            
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'tJHXA-t3aVg',
+                startTime: 0,
+                title: 'Site Timelapse',
+                subtitle: 'Construction'
+            },            
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: "Huey Magoo's restaurant",
+                title: 'Foodservice',
+                subtitle: 'Real Estate'
+            },            
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'D6MdGFrOEII',
+                startTime: 0,
+                title: 'Foundation Progress',
+                subtitle: 'Construction'
+            },        
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/dhl.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Large commercial office building',
+                title: 'Commercial Office',
+                subtitle: 'Real Estate'
+            },
         ];
 
-        // Core Interaction Layer Functions
-        function handleHeroHover(side) {
-            // Simply uses your original dynamic hover approach without breaking styling arrays
+        // ==========================================================================
+        // PORTFOLIO ENGINE & YOUTUBE PLAYER INTEGRATION
+        // ==========================================================================
+        let ytApiReady = false;
+        const activePlayers = [];
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         }
 
-        function handleHeroLeave(side) {
-            // Clean fallback back to standard attributes
+        function onYouTubeIframeAPIReady() {
+            ytApiReady = true;
+            initializeVideos();
         }
 
-        function handleHeroClick(e, targetCategory) {
-            e.preventDefault();
-            const workSection = document.getElementById("work-section");
-            if(workSection) {
-                workSection.scrollIntoView({ behavior: 'smooth' });
-                filterPortfolio(targetCategory);
-            }
-        }
+        function renderPortfolioGrid() {
+            const target = document.getElementById('portfolio-grid-target');
+            if (!target) return;
+            target.innerHTML = '';
 
-        function filterPortfolio(category) {
-            const filterButtons = document.querySelectorAll(".filter-btn");
-            filterButtons.forEach(btn => btn.classList.remove("active"));
-            
-            const targetBtn = document.getElementById(`filter-${category}`);
-            if(targetBtn) targetBtn.classList.add("active");
+            portfolioItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = `grid-item data-item-type-${item.category}`;
+                card.setAttribute('data-category', item.category);
 
-            const gridTarget = document.getElementById("portfolio-grid-target");
-            gridTarget.innerHTML = "";
-
-            const targetItems = category === "all" ? portfolioItems : portfolioItems.filter(i => i.category === category);
-
-            targetItems.forEach((item, idx) => {
-                const card = document.createElement("div");
-                card.className = "grid-item";
-
-                if(item.type === "image") {
-                    card.innerHTML = `
-                        <img src="${item.src}" alt="${item.alt || item.title}">
-                        <div class="item-overlay">
-                            <h3>${item.title}</h3>
-                            <span>${item.subtitle}</span>
-                        </div>
-                    `;
-                } else if(item.type === "video") {
-                    card.innerHTML = `
-                        <div class="video-container" id="vid-wrap-${idx}">
-                            <iframe 
-                                src="https://www.youtube.com/embed/${item.embedId}?autoplay=1&mute=1&controls=0&loop=1&playlist=${item.embedId}&start=${item.startTime}&playsinline=1" 
-                                allow="autoplay; encrypted-media" 
-                                title="${item.title}"
-                                onload="document.getElementById('vid-wrap-${idx}').classList.add('video-ready')"
-                            ></iframe>
-                            <div class="item-overlay">
-                                <h3>${item.title}</h3>
-                                <span>${item.subtitle}</span>
-                            </div>
+                let mediaHTML = '';
+                if (item.type === 'image') {
+                    mediaHTML = `<img src="${item.src}" alt="${item.alt || ''}" loading="lazy">`;
+                } else if (item.type === 'video') {
+                    const uniqueVideoId = `yt-player-${index}`;
+                    mediaHTML = `
+                        <div class="video-container" id="container-${uniqueVideoId}">
+                            <div id="${uniqueVideoId}" data-embed="${item.embedId}" data-start="${item.startTime || 0}"></div>
                         </div>
                     `;
                 }
-                gridTarget.appendChild(card);
-                setTimeout(() => card.classList.add("visible"), idx * 80);
+
+                card.innerHTML = `
+                    ${mediaHTML}
+                    <div class="item-overlay">
+                        <h3>${item.title}</h3>
+                        <span>${item.subtitle}</span>
+                    </div>
+                `;
+                target.appendChild(card);
+            });
+
+            if (ytApiReady) {
+                initializeVideos();
+            }
+
+            setTimeout(() => {
+                document.querySelectorAll('.grid-item').forEach(el => el.classList.add('visible'));
+            }, 50);
+        }
+
+        function initializeVideos() {
+            portfolioItems.forEach((item, index) => {
+                if (item.type !== 'video') return;
+                const elementId = `yt-player-${index}`;
+                const div = document.getElementById(elementId);
+                const container = document.getElementById(`container-${elementId}`);
+                
+                if (!div || div.dataset.playerInitialized) return;
+
+                const player = new YT.Player(elementId, {
+                    videoId: div.dataset.embed,
+                    playerVars: {
+                        autoplay: 1,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        iv_load_policy: 3,
+                        loop: 1,
+                        modestbranding: 1,
+                        mute: 1,
+                        playlist: div.dataset.embed,
+                        rel: 0,
+                        showinfo: 0,
+                        start: parseInt(div.dataset.start, 10) || 0
+                    },
+                    events: {
+                        onReady: (e) => {
+                            e.target.mute();
+                            e.target.playVideo();
+                        },
+                        onStateChange: (e) => {
+                            if (e.data === YT.PlayerState.PLAYING && container) {
+                                container.classList.add('video-ready');
+                            }
+                            if (e.data === YT.PlayerState.ENDED) {
+                                e.target.seekTo(parseInt(div.dataset.start, 10) || 0);
+                                e.target.playVideo();
+                            }
+                        }
+                    }
+                });
+
+                div.dataset.playerInitialized = "true";
+                activePlayers.push(player);
             });
         }
 
-        window.addEventListener("DOMContentLoaded", () => {
-            filterPortfolio("all");
+        function filterPortfolio(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            
+            const activeBtn = document.getElementById(`filter-${category}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            const items = document.querySelectorAll('.grid-item');
+            items.forEach(item => {
+                item.classList.remove('visible');
+                setTimeout(() => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.classList.add('visible'), 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }, 300);
+            });
+        }
+
+        // ==========================================================================
+        // HERO COMPONENT INTERACTION LOGIC
+        // ==========================================================================
+        function handleHeroHover(side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            if (!sideEl) return;
+            
+            const descEl = sideEl.querySelector('.hero-desc');
+            const headingEl = sideEl.querySelector('h1');
+            
+            if (descEl && headingEl) {
+                descEl.textContent = `Click to view portfolio`;
+                descEl.classList.add('primed-for-click');
+                headingEl.classList.add('active-title');
+            }
+        }
+
+        function handleHeroLeave(side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            if (!sideEl) return;
+
+            const descEl = sideEl.querySelector('.hero-desc');
+            const headingEl = sideEl.querySelector('h1');
+
+            if (descEl && headingEl) {
+                descEl.textContent = descEl.getAttribute('data-original');
+                descEl.classList.remove('primed-for-click');
+                headingEl.classList.remove('active-title');
+            }
+            sideEl.classList.remove('mobile-active');
+        }
+
+        function handleHeroClick(event, side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile && sideEl && !sideEl.classList.contains('mobile-active')) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                const otherSide = side === 'ground' ? 'drone' : 'ground';
+                handleHeroLeave(otherSide);
+                
+                sideEl.classList.add('mobile-active');
+                handleHeroHover(side);
+                return;
+            }
+
+            const targetSection = document.getElementById('work-section');
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            filterPortfolio(side);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPortfolioGrid();
         });
     </script>
 </body>
