@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SOARTIZ MEDIA | Photo & Video | Camera + Drone</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2=family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -214,6 +214,7 @@
             align-items: center;
         }
 
+        /* Dedicated Layout Grouping for Icon on its own line above text */
         .hero-title-group {
             display: flex;
             flex-direction: column;
@@ -263,12 +264,14 @@
             }
         }
 
+        /* Desktop Title Hover State Styles */
         .hero-side:hover .hero-content h1 {
             font-weight: 700;
             letter-spacing: 6px;
             text-shadow: 0 4px 22px rgba(0, 0, 0, 0.95);
         }
 
+        /* Mobile Title Active State Styles */
         .hero-content h1.active-title {
             font-weight: 700;
             letter-spacing: 6px;
@@ -306,12 +309,14 @@
             justify-content: center;
         }
 
+        /* Dynamic selection visual hint styling */
         .hero-desc {
             display: inline-block;
             transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             text-shadow: var(--text-shadow-heavy);
         }
 
+        /* Enhanced prominence layout when action triggered */
         .hero-desc.primed-for-click {
             color: #ffffff;
             font-weight: 700;
@@ -331,131 +336,6 @@
         @keyframes pulseScaleHint {
             0%, 100% { transform: scale(1); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7), 0 0 14px rgba(52, 152, 219, 0.2); }
             50% { transform: scale(1.04); border-color: rgba(52, 152, 219, 0.9); box-shadow: 0 10px 28px rgba(0, 0, 0, 0.8), 0 0 20px rgba(52, 152, 219, 0.4); }
-        }
-
-        /* ==========================================================================
-           4b. BUSINESS STATISTICS SECTION (NEW)
-           ========================================================================== */
-        #stats-section {
-            z-index: 2;
-            height: auto;
-            min-height: 100vh;
-            padding: 140px 50px 100px 50px;
-            background-color: #0c0c0c;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            overflow-y: auto;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 20px;
-            width: 100%;
-            max-width: 1500px;
-            margin: 0 auto;
-        }
-
-        .stat-card {
-            background-color: var(--card-bg);
-            border-radius: 8px;
-            padding: 40px 20px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .stat-card:hover {
-            border-color: rgba(52, 152, 219, 0.3);
-            transform: translateY(-5px);
-            background-color: #181818;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .stat-card i {
-            font-size: 2rem;
-            color: var(--accent-color);
-            margin-bottom: 20px;
-            opacity: 0.8;
-            transition: var(--transition);
-        }
-
-        .stat-card:hover i {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 700;
-            letter-spacing: -1px;
-            margin-bottom: 5px;
-            color: #ffffff;
-        }
-
-        .stat-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: rgba(255, 255, 255, 0.5);
-        }
-
-        .charity-banner {
-            max-width: 1500px;
-            width: 100%;
-            margin: 40px auto 0 auto;
-            background: linear-gradient(135deg, #141414 0%, #0f0f0f 100%);
-            border: 1px solid rgba(255, 255, 255, 0.03);
-            border-left: 4px solid var(--accent-compliment);
-            border-radius: 8px;
-            padding: 30px 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: var(--transition);
-        }
-
-        .charity-banner:hover {
-            border-color: rgba(219, 119, 52, 0.3);
-            border-left-color: var(--accent-compliment);
-            background: #181818;
-        }
-
-        .charity-info {
-            display: flex;
-            align-items: center;
-            gap: 25px;
-        }
-
-        .charity-info i {
-            font-size: 2.2rem;
-            color: var(--accent-compliment);
-        }
-
-        .charity-text h3 {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .charity-text p {
-            font-size: 0.9rem;
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .charity-amount {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: #ffffff;
-            letter-spacing: -0.5px;
         }
 
         /* ==========================================================================
@@ -486,6 +366,7 @@
             margin-bottom: 50px;
         }
 
+        /* Portfolio filter layout synchronized with the hero card's pill button style */
         .filter-btn {
             background: rgba(10, 10, 10, 0.85);
             border: 1px solid rgba(52, 152, 219, 0.4);
@@ -805,11 +686,6 @@
             .hero-content i { font-size: 2rem; margin-bottom: 10px; }
             .hero-desc.primed-for-click { padding: 8px 18px; font-size: 0.8rem; }
 
-            #stats-section { padding: 60px 20px; }
-            .stats-grid { grid-template-columns: 1fr; gap: 15px; }
-            .charity-banner { flex-direction: column; gap: 20px; text-align: center; padding: 25px 20px; }
-            .charity-info { flex-direction: column; gap: 10px; }
-
             #work-section { padding: 60px 20px 60px 20px; }
             .section-title { font-size: 1.8rem; margin-bottom: 25px; }
             .filters { flex-wrap: wrap; gap: 10px; margin-bottom: 35px; }
@@ -914,7 +790,6 @@
             <div class="tagline">Elevate | Animate | Captivate</div>
         </div>
         <div class="nav-links">
-            <a href="#stats-section">Metrics</a>
             <a href="#work-section">Work</a>
             <a href="#testimonials-section">Reviews</a>
             <a href="#contact-section">Contact</a>
@@ -970,48 +845,6 @@
                     <p><span class="hero-desc" data-original="soaring dynamics | the big picture">soaring dynamics | the big picture</span></p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section id="stats-section" class="stack-section">
-        <h2 class="section-title">Track Record</h2>
-        <div class="stats-grid">
-            <div class="stat-card">
-                <i class="fa-solid fa-briefcase"></i>
-                <div class="stat-number" id="stat-missions">---</div>
-                <div class="stat-label">Missions Done</div>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-stopwatch"></i>
-                <div class="stat-number" id="stat-hours">---</div>
-                <div class="stat-label">Hours Flown</div>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-route"></i>
-                <div class="stat-number" id="stat-miles">---</div>
-                <div class="stat-label">Miles Covered</div>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-map-location-dot"></i>
-                <div class="stat-number" id="stat-towns">---</div>
-                <div class="stat-label">Towns Served</div>
-            </div>
-            <div class="stat-card">
-                <i class="fa-solid fa-dove"></i>
-                <div class="stat-number" id="stat-birds">Countless</div>
-                <div class="stat-label">Birds Dodged</div>
-            </div>
-        </div>
-        
-        <div class="charity-banner">
-            <div class="charity-info">
-                <i class="fa-solid fa-hand-holding-heart"></i>
-                <div class="charity-text">
-                    <h3>Community Support</h3>
-                    <p>Proudly investing back into community charities and local non-profits.</p>
-                </div>
-            </div>
-            <div class="charity-amount" id="stat-charity">$---</div>
         </div>
     </section>
 
@@ -1097,69 +930,259 @@
                 type: 'image',
                 category: 'drone',
                 src: 'assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: 'Aerial shot of development site',
-                title: 'Progress Mapping',
+                alt: 'New housing development under construction',
+                title: 'Residential Site Progress',
                 subtitle: 'Construction'
-            }
+            },            
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'JG9Ewqpa6SE',
+                startTime: 9,
+                title: 'Tour of Homes',
+                subtitle: 'Events'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'g7zlQGBSuZw',
+                startTime: 0,
+                title: 'Hotel Construction',
+                subtitle: 'Construction'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'vstiIbCJT74',
+                startTime: 0,
+                title: 'Protest at the Statehouse',
+                subtitle: 'Event'
+            },
+            {
+                type: 'image',
+                category: 'drone',
+                src: 'assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Apartment complex leasing office',
+                title: 'Residential Interiors',
+                subtitle: 'Real Estate'
+            },            
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'tJHXA-t3aVg',
+                startTime: 0,
+                title: 'Site Timelapse',
+                subtitle: 'Construction'
+            },            
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: "Huey Magoo's restaurant",
+                title: 'Foodservice',
+                subtitle: 'Real Estate'
+            },            
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'D6MdGFrOEII',
+                startTime: 0,
+                title: 'Foundation Progress',
+                subtitle: 'Construction'
+            },        
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/dhl.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Large commercial office building',
+                title: 'Commercial Office',
+                subtitle: 'Real Estate'
+            },
         ];
 
-        // Core App Initializers & Fallback placeholders 
-        function filterPortfolio(category) {
-            console.log('Filtering portfolio for:', category);
+        // ==========================================================================
+        // PORTFOLIO ENGINE & YOUTUBE PLAYER INTEGRATION
+        // ==========================================================================
+        let ytApiReady = false;
+        const activePlayers = [];
+
+        if (!window.YT) {
+            const tag = document.createElement('script');
+            tag.src = "https://www.youtube.com/iframe_api";
+            const firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
         }
-        function handleHeroClick(e, mode) { }
-        function handleHeroHover(mode) { }
-        function handleHeroLeave(mode) { }
 
-        // ==========================================================================
-        // TEXT FILE PARSER FOR BUSINESS STATISTICS
-        // ==========================================================================
-        async function loadBusinessStatistics() {
-            try {
-                const response = await fetch('/assets/txt/soartizStats.txt');
-                if (!response.ok) throw new Error('Network status mismatch trying to read files');
-                
-                const text = await response.text();
-                const lines = text.split('\n');
-                
-                lines.forEach(line => {
-                    const trimmed = line.trim();
-                    if (!trimmed) return;
+        function onYouTubeIframeAPIReady() {
+            ytApiReady = true;
+            initializeVideos();
+        }
 
-                    // Regex extract mappings
-                    if (trimmed.toLowerCase().includes('commercial missions')) {
-                        document.getElementById('stat-missions').innerText = trimmed.replace(/\D/g, '');
-                    } else if (trimmed.toLowerCase().includes('hours flown')) {
-                        document.getElementById('stat-hours').innerText = trimmed.replace(/\D/g, '');
-                    } else if (trimmed.toLowerCase().includes('miles flown')) {
-                        document.getElementById('stat-miles').innerText = trimmed.replace(/\D/g, '');
-                    } else if (trimmed.toLowerCase().includes('towns served')) {
-                        document.getElementById('stat-towns').innerText = trimmed.replace(/\D/g, '');
-                    } else if (trimmed.toLowerCase().includes('birds dodged')) {
-                        // Extract leading alphanumeric if it changes from 'Countless'
-                        const match = trimmed.match(/^([A-Za-z0-9]+)/);
-                        if (match) document.getElementById('stat-birds').innerText = match[1];
-                    } else if (trimmed.includes('$') || trimmed.toLowerCase().includes('donated')) {
-                        // Keeps currency layout safe
-                        const amountMatch = trimmed.match(/\$?([0-9,.\s]+)/);
-                        if (amountMatch) {
-                            document.getElementById('stat-charity').innerText = '$' + amountMatch[1].trim();
+        function renderPortfolioGrid() {
+            const target = document.getElementById('portfolio-grid-target');
+            if (!target) return;
+            target.innerHTML = '';
+
+            portfolioItems.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = `grid-item data-item-type-${item.category}`;
+                card.setAttribute('data-category', item.category);
+
+                let mediaHTML = '';
+                if (item.type === 'image') {
+                    mediaHTML = `<img src="${item.src}" alt="${item.alt || ''}" loading="lazy">`;
+                } else if (item.type === 'video') {
+                    const uniqueVideoId = `yt-player-${index}`;
+                    mediaHTML = `
+                        <div class="video-container" id="container-${uniqueVideoId}">
+                            <div id="${uniqueVideoId}" data-embed="${item.embedId}" data-start="${item.startTime || 0}"></div>
+                        </div>
+                    `;
+                }
+
+                card.innerHTML = `
+                    ${mediaHTML}
+                    <div class="item-overlay">
+                        <h3>${item.title}</h3>
+                        <span>${item.subtitle}</span>
+                    </div>
+                `;
+                target.appendChild(card);
+            });
+
+            if (ytApiReady) {
+                initializeVideos();
+            }
+
+            setTimeout(() => {
+                document.querySelectorAll('.grid-item').forEach(el => el.classList.add('visible'));
+            }, 50);
+        }
+
+        function initializeVideos() {
+            portfolioItems.forEach((item, index) => {
+                if (item.type !== 'video') return;
+                const elementId = `yt-player-${index}`;
+                const div = document.getElementById(elementId);
+                const container = document.getElementById(`container-${elementId}`);
+                
+                if (!div || div.dataset.playerInitialized) return;
+
+                const player = new YT.Player(elementId, {
+                    videoId: div.dataset.embed,
+                    playerVars: {
+                        autoplay: 1,
+                        controls: 0,
+                        disablekb: 1,
+                        fs: 0,
+                        iv_load_policy: 3,
+                        loop: 1,
+                        modestbranding: 1,
+                        mute: 1,
+                        playlist: div.dataset.embed,
+                        rel: 0,
+                        showinfo: 0,
+                        start: parseInt(div.dataset.start, 10) || 0
+                    },
+                    events: {
+                        onReady: (e) => {
+                            e.target.mute();
+                            e.target.playVideo();
+                        },
+                        onStateChange: (e) => {
+                            if (e.data === YT.PlayerState.PLAYING && container) {
+                                container.classList.add('video-ready');
+                            }
+                            if (e.data === YT.PlayerState.ENDED) {
+                                e.target.seekTo(parseInt(div.dataset.start, 10) || 0);
+                                e.target.playVideo();
+                            }
                         }
                     }
                 });
-            } catch (error) {
-                console.warn('Stats lookup fallback to default layout configuration profiles:', error);
-                // Hardcoded fallback data configurations
-                document.getElementById('stat-missions').innerText = '150+';
-                document.getElementById('stat-hours').innerText = '420';
-                document.getElementById('stat-miles').innerText = '2,800';
-                document.getElementById('stat-towns').innerText = '45';
-                document.getElementById('stat-charity').innerText = '$5,000';
+
+                div.dataset.playerInitialized = "true";
+                activePlayers.push(player);
+            });
+        }
+
+        function filterPortfolio(category) {
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            
+            const activeBtn = document.getElementById(`filter-${category}`);
+            if (activeBtn) activeBtn.classList.add('active');
+
+            const items = document.querySelectorAll('.grid-item');
+            items.forEach(item => {
+                item.classList.remove('visible');
+                setTimeout(() => {
+                    if (category === 'all' || item.getAttribute('data-category') === category) {
+                        item.style.display = 'block';
+                        setTimeout(() => item.classList.add('visible'), 50);
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }, 300);
+            });
+        }
+
+        // ==========================================================================
+        // HERO COMPONENT INTERACTION LOGIC
+        // ==========================================================================
+        function handleHeroHover(side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            if (!sideEl) return;
+            
+            const descEl = sideEl.querySelector('.hero-desc');
+            const headingEl = sideEl.querySelector('h1');
+            
+            if (descEl && headingEl) {
+                descEl.textContent = `Click to view portfolio`;
+                descEl.classList.add('primed-for-click');
+                headingEl.classList.add('active-title');
             }
         }
 
-        window.addEventListener('DOMContentLoaded', () => {
-            loadBusinessStatistics();
+        function handleHeroLeave(side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            if (!sideEl) return;
+
+            const descEl = sideEl.querySelector('.hero-desc');
+            const headingEl = sideEl.querySelector('h1');
+
+            if (descEl && headingEl) {
+                descEl.textContent = descEl.getAttribute('data-original');
+                descEl.classList.remove('primed-for-click');
+                headingEl.classList.remove('active-title');
+            }
+            sideEl.classList.remove('mobile-active');
+        }
+
+        function handleHeroClick(event, side) {
+            const sideEl = document.querySelector(`.side-${side}`);
+            const isMobile = window.innerWidth <= 768;
+
+            if (isMobile && sideEl && !sideEl.classList.contains('mobile-active')) {
+                event.preventDefault();
+                event.stopPropagation();
+                
+                const otherSide = side === 'ground' ? 'drone' : 'ground';
+                handleHeroLeave(otherSide);
+                
+                sideEl.classList.add('mobile-active');
+                handleHeroHover(side);
+                return;
+            }
+
+            const targetSection = document.getElementById('work-section');
+            if (targetSection) {
+                targetSection.scrollIntoView({ behavior: 'smooth' });
+            }
+            filterPortfolio(side);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPortfolioGrid();
         });
     </script>
 </body>
