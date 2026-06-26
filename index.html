@@ -1122,15 +1122,71 @@
                 embedId: 'JG9Ewqpa6SE',
                 startTime: 9,
                 title: 'Tour of Homes',
+                subtitle: 'Events'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'g7zlQGBSuZw',
+                startTime: 0,
+                title: 'Hotel Construction',
+                subtitle: 'Construction'
+            },
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'vstiIbCJT74',
+                startTime: 0,
+                title: 'Protest at the Statehouse',
+                subtitle: 'Event'
+            },
+            {
+                type: 'image',
+                category: 'drone',
+                src: 'assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Apartment complex leasing office',
+                title: 'Residential Interiors',
                 subtitle: 'Real Estate'
-            }
+            },            
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'tJHXA-t3aVg',
+                startTime: 0,
+                title: 'Site Timelapse',
+                subtitle: 'Construction'
+            },            
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: "Huey Magoo's restaurant",
+                title: 'Foodservice',
+                subtitle: 'Real Estate'
+            },            
+            {
+                type: 'video',
+                category: 'drone',
+                embedId: 'D6MdGFrOEII',
+                startTime: 0,
+                title: 'Foundation Progress',
+                subtitle: 'Construction'
+            },        
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/dhl.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                alt: 'Large commercial office building',
+                title: 'Commercial Office',
+                subtitle: 'Real Estate'
+            },
         ];
 
         // Core Interaction Layer Functions
         function handleHeroHover(side) {
             const desc = document.querySelector(`.side-${side} .hero-desc`);
             if(desc) {
-                desc.textContent = "Explore Projects";
+                desc.textContent = "Click here for work";
                 desc.classList.add("primed-for-click");
             }
         }
