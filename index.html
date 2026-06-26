@@ -564,8 +564,16 @@
 
         .stat-card i {
             font-size: 1.8rem;
-            color: #3498db;
             margin-bottom: 20px;
+        }
+
+        /* Target unique colors per card category */
+        .stat-grid .stat-card:nth-child(odd) i {
+            color: var(--accent-color);
+        }
+
+        .stat-grid .stat-card:nth-child(even) i {
+            color: var(--accent-compliment);
         }
 
         .stat-number {
@@ -1004,23 +1012,23 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <i class="fa-solid fa-briefcase"></i>
-                    <div class="stat-number">69</div>
-                    <div class="stat-label">Commercial Missions</div>
+                    <div class="stat-number">150+</div>
+                    <div class="stat-label">Missions Done</div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-stopwatch"></i>
-                    <div class="stat-number">69</div>
+                    <div class="stat-number">420</div>
                     <div class="stat-label">Hours Flown</div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-route"></i>
-                    <div class="stat-number">543</div>
-                    <div class="stat-label">Miles Flown</div>
+                    <div class="stat-number">2,800</div>
+                    <div class="stat-label">Miles Covered</div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-map-location-dot"></i>
-                    <div class="stat-number">38</div>
-                    <div class="stat-label">Cities Served</div>
+                    <div class="stat-number">45</div>
+                    <div class="stat-label">Towns Served</div>
                 </div>
                 <div class="stat-card birds">
                     <i class="fa-solid fa-dove"></i>
@@ -1034,10 +1042,10 @@
                     <i class="fa-solid fa-hand-holding-heart"></i>
                     <div class="community-text">
                         <h4>Community Support</h4>
-                        <p>Proudly investing back into community and local non-profits.</p>
+                        <p>Proudly investing back into community charities and local non-profits.</p>
                     </div>
                 </div>
-                <div class="community-amount">$800</div>
+                <div class="community-amount">$5,000</div>
             </div>
         </div>
     </section>
@@ -1087,7 +1095,7 @@
             {
                 type: 'image',
                 category: 'ground',
-                src: 'assets/images/confTable.jpg?auto=format&fit=crop&w=600&h=400&q=80',
+                src: 'assets/images/confTable.jpg',
                 alt: 'Conference room with large artisan table',
                 title: 'Commercial Interiors',
                 subtitle: 'Real Estate'
@@ -1098,7 +1106,8 @@
                 embedId: 'SG25dLuapzc',
                 startTime: 15,
                 title: 'Wedding Highlights',
-                subtitle: 'Events'
+                subtitle: 'Events',
+                hasLoaded: false
             },
             {
                 type: 'video',
@@ -1106,87 +1115,57 @@
                 embedId: 'AmKZIEV2iyg',
                 startTime: 0,
                 title: 'Data Center',
+                subtitle: 'Construction',
+                hasLoaded: false
+            },
+            {
+                type: 'image',
+                category: 'drone',
+                src: 'assets/images/construction.jpg',
+                alt: 'New housing development under construction',
+                title: 'Residential Site Progress',
                 subtitle: 'Construction'
             },
             {
                 type: 'image',
                 category: 'drone',
-                src: 'assets/images/construction.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: 'New housing development under construction',
-                title: 'Residential Site Progress',
-                subtitle: 'Construction'
-            },            
+                src: 'assets/images/backyard.jpg',
+                alt: 'Aerial view of a custom residential backyard with pool',
+                title: 'Luxury Backyard Living',
+                subtitle: 'Real Estate'
+            },
+            {
+                type: 'image',
+                category: 'ground',
+                src: 'assets/images/interiorKitchen.jpg',
+                alt: 'Modern kitchen interior shot highlighting detail work',
+                title: 'Modern Custom Kitchens',
+                subtitle: 'Real Estate'
+            },
             {
                 type: 'video',
                 category: 'drone',
                 embedId: 'JG9Ewqpa6SE',
                 startTime: 9,
                 title: 'Tour of Homes',
-                subtitle: 'Events'
-            },
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'g7zlQGBSuZw',
-                startTime: 0,
-                title: 'Hotel Construction',
-                subtitle: 'Construction'
-            },
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'vstiIbCJT74',
-                startTime: 0,
-                title: 'Protest at the Statehouse',
-                subtitle: 'Event'
+                subtitle: 'Real Estate',
+                hasLoaded: false
             },
             {
                 type: 'image',
                 category: 'drone',
-                src: 'assets/images/hilgrand.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: 'Apartment complex leasing office',
-                title: 'Residential Interiors',
+                src: 'assets/images/overOak.jpg',
+                alt: 'Drone photography over autumn trees and property line',
+                title: 'Acreage Boundaries',
                 subtitle: 'Real Estate'
-            },            
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'tJHXA-t3aVg',
-                startTime: 0,
-                title: 'Site Timelapse',
-                subtitle: 'Construction'
-            },            
-            {
-                type: 'image',
-                category: 'ground',
-                src: 'assets/images/hmags.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: "Huey Magoo's restaurant",
-                title: 'Foodservice',
-                subtitle: 'Real Estate'
-            },            
-            {
-                type: 'video',
-                category: 'drone',
-                embedId: 'D6MdGFrOEII',
-                startTime: 0,
-                title: 'Foundation Progress',
-                subtitle: 'Construction'
-            },        
-            {
-                type: 'image',
-                category: 'ground',
-                src: 'assets/images/dhl.jpg?auto=format&fit=crop&w=600&h=400&q=80',
-                alt: 'Large commercial office building',
-                title: 'Commercial Office',
-                subtitle: 'Real Estate'
-            },
+            }
         ];
 
         // Core Interaction Layer Functions
         function handleHeroHover(side) {
             const desc = document.querySelector(`.side-${side} .hero-desc`);
             if(desc) {
-                desc.textContent = "Click here for work";
+                desc.textContent = "Explore Projects";
                 desc.classList.add("primed-for-click");
             }
         }
